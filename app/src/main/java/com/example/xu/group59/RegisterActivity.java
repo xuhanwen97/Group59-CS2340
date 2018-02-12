@@ -1,6 +1,5 @@
 package com.example.xu.group59;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -14,36 +13,31 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class LoginActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
 
     //Instance Variables
-    Button loginButton;
+    Button registerButton;
     EditText usernameEditText, passwordEditText;
-
-    //Hardcoded username and password values that are correct
-    String correctUsername = "user";
-    String correctPassword = "pass";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_register);
 
         //Sets up the top bar
         setSupportActionBar((Toolbar) findViewById(R.id.app_toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Grabs each view from the layout
-        loginButton = findViewById(R.id.login_button);
+        registerButton = findViewById(R.id.register_button);
         usernameEditText = findViewById(R.id.username_edit_text);
         passwordEditText = findViewById(R.id.password_edit_text);
 
-        //sets an onclick listener for the login button
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        //sets an onclick listener for the register button
+        registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                attemptLogin();
+                attemptRegister();
             }
         });
     }
@@ -59,26 +53,10 @@ public class LoginActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void attemptLogin() {
-        String givenUsername = usernameEditText.getText().toString();
-        String givenPassword = passwordEditText.getText().toString();
-
-        if (givenUsername.equals(correctUsername) && givenPassword.equals(correctPassword)) {
-            Toast successToast = Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT);
-            successToast.setGravity(Gravity.CENTER, 0, 0);
-            successToast.show();
-
-            launchTempApplication();
-        } else {
-            Toast failToast = Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT);
-            failToast.setGravity(Gravity.CENTER, 0, 0);
-            failToast.show();
-        }
-    }
-
-    private void launchTempApplication() {
-        Intent intent = new Intent(this, TempApplication.class);
-        startActivity(intent);
+    private void attemptRegister() {
+        Toast successToast = Toast.makeText(this, "Register Successful", Toast.LENGTH_SHORT);
+        successToast.setGravity(Gravity.CENTER, 0, 0);
+        successToast.show();
     }
 
 }

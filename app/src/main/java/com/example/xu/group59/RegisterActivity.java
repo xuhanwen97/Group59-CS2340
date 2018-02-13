@@ -29,9 +29,9 @@ public class RegisterActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Grabs each view from the layout
-        registerButton = findViewById(R.id.register_button);
-        usernameEditText = findViewById(R.id.username_edit_text);
-        passwordEditText = findViewById(R.id.password_edit_text);
+        registerButton = (Button) findViewById(R.id.register_button);
+        usernameEditText = (EditText) findViewById(R.id.username_edit_text);
+        passwordEditText = (EditText) findViewById(R.id.password_edit_text);
 
         //sets an onclick listener for the register button
         registerButton.setOnClickListener(new View.OnClickListener() {

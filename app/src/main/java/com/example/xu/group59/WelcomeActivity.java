@@ -20,8 +20,8 @@ public class WelcomeActivity extends AppCompatActivity {
         setSupportActionBar((Toolbar) findViewById(R.id.app_toolbar));
 
         //Grabs each view from the layout
-        loginButton = findViewById(R.id.welcome_login_button);
-        registerButton = findViewById(R.id.welcome_register_button);
+        loginButton = (Button) findViewById(R.id.welcome_login_button);
+        registerButton = (Button) findViewById(R.id.welcome_register_button);
 
         //sets an onclick listener for the login button
         loginButton.setOnClickListener(new View.OnClickListener() {

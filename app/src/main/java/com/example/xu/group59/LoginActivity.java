@@ -35,9 +35,9 @@ public class LoginActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Grabs each view from the layout
-        loginButton = findViewById(R.id.login_button);
-        usernameEditText = findViewById(R.id.username_edit_text);
-        passwordEditText = findViewById(R.id.password_edit_text);
+        loginButton = (Button) findViewById(R.id.login_button);
+        usernameEditText = (EditText) findViewById(R.id.username_edit_text);
+        passwordEditText = (EditText) findViewById(R.id.password_edit_text);
 
         //sets an onclick listener for the login button
         loginButton.setOnClickListener(new View.OnClickListener() {

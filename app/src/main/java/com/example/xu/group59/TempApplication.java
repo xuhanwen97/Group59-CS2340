@@ -21,7 +21,7 @@ public class TempApplication extends AppCompatActivity {
         //Sets up the top bar
         setSupportActionBar((Toolbar) findViewById(R.id.app_toolbar));
 
-        logoutButton = findViewById(R.id.temp_logout_button);
+        logoutButton = (Button) findViewById(R.id.temp_logout_button);
 
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override

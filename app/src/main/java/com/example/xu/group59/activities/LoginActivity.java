@@ -1,10 +1,7 @@
-package com.example.xu.group59;
+package com.example.xu.group59.activities;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
@@ -14,6 +11,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.xu.group59.R;
+import com.example.xu.group59.models.User;
+
 public class LoginActivity extends AppCompatActivity {
 
     //Instance Variables
@@ -21,9 +21,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText usernameEditText, passwordEditText;
 
     //Hardcoded username and password values that are correct
-    String correctUsername = "user";
-    String correctPassword = "pass";
-
+    User defaultUser = new User("user", "pass", "default_user");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
         String givenUsername = usernameEditText.getText().toString();
         String givenPassword = passwordEditText.getText().toString();
 
-        if (givenUsername.equals(correctUsername) && givenPassword.equals(correctPassword)) {
+        if (givenUsername.equals(defaultUser.getUserID()) && givenPassword.equals(defaultUser.getPassword())) {
             Toast successToast = Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT);
             successToast.setGravity(Gravity.CENTER, 0, 0);
             successToast.show();

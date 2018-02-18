@@ -1,4 +1,4 @@
-package com.example.xu.group59;
+package com.example.xu.group59.activities;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.xu.group59.R;
 
 public class RegisterActivity extends AppCompatActivity {
 

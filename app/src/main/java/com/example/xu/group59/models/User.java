@@ -3,6 +3,8 @@ package com.example.xu.group59.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.example.xu.group59.Utils.StringUtils;
+
 public class User implements Parcelable {
     //region [ Declarations ] ================================= //
 
@@ -28,15 +30,15 @@ public class User implements Parcelable {
     }
 
     private User(String email, String password, String name, UserStatus userStatus) {
-        if (email == null) {
+        if (StringUtils.isNullOrEmpty(email)) {
             throw new IllegalArgumentException("email cannot be null");
         }
 
-        if (password == null) {
+        if (StringUtils.isNullOrEmpty(password)) {
             throw new IllegalArgumentException("password cannot be null");
         }
 
-        if (name == null) {
+        if (StringUtils.isNullOrEmpty(name)) {
             throw new IllegalArgumentException("name cannot be null");
         }
 
@@ -71,7 +73,6 @@ public class User implements Parcelable {
     public int hashCode() {
         return userID.hashCode();
     }
-
 
     //region [ Parcelable ] ================================= //
 

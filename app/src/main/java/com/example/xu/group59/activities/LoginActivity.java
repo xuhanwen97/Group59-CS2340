@@ -12,16 +12,23 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.xu.group59.R;
+import com.example.xu.group59.Utils.StringUtils;
+import com.example.xu.group59.Utils.ToastUtils;
 import com.example.xu.group59.models.User;
+
+import java.util.ArrayList;
 
 public class LoginActivity extends AppCompatActivity {
 
+    //Static Variables
+    public final static String LOGGED_IN_USER_DATA = "registered_user_data";
+    static final int RESULT_LOGIN_SUCCESS = 100;
+
     //Instance Variables
     Button loginButton;
-    EditText usernameEditText, passwordEditText;
+    EditText emailEditText, passwordEditText;
 
-    //Hardcoded username and password values that are correct
-    User defaultUser = new User("user", "pass", "default_user");
+    ArrayList<User> users = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
 
         //Grabs each view from the layout
         loginButton = (Button) findViewById(R.id.login_button);
-        usernameEditText = (EditText) findViewById(R.id.username_edit_text);
+        emailEditText = (EditText) findViewById(R.id.email_edit_text);
         passwordEditText = (EditText) findViewById(R.id.password_edit_text);
 
         //sets an onclick listener for the login button
@@ -44,6 +51,11 @@ public class LoginActivity extends AppCompatActivity {
                 attemptLogin();
             }
         });
+
+        //Grab the user list from intent
+        if (getIntent() != null && getIntent().hasExtra(WelcomeActivity.EXTRA_USER_LIST)) {
+            users = getIntent().getParcelableArrayListExtra(WelcomeActivity.EXTRA_USER_LIST);
+        }
     }
 
     @Override
@@ -58,25 +70,57 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void attemptLogin() {
-        String givenUsername = usernameEditText.getText().toString();
+        String givenEmail = emailEditText.getText().toString();
         String givenPassword = passwordEditText.getText().toString();
 
-        if (givenUsername.equals(defaultUser.getUserID()) && givenPassword.equals(defaultUser.getPassword())) {
-            Toast successToast = Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT);
-            successToast.setGravity(Gravity.CENTER, 0, 0);
-            successToast.show();
+        if (StringUtils.isNullOrEmpty(givenEmail)) {
+            ToastUtils.shortToastCenter(this, "Email cannot be empty").show();
+            return;
+        }
 
-            launchTempApplication();
+        if (StringUtils.isNullOrEmpty(givenPassword)) {
+            ToastUtils.shortToastCenter(this, "Password cannot be empty").show();
+            return;
+        }
+
+        User loggedInUser = authenticateUser(givenEmail, givenPassword);
+
+        if (loggedInUser != null) {
+            ToastUtils.shortToastCenter(this, "Login Successful").show();
+
+            Intent finishActivityIntent = new Intent();
+            setResult(RESULT_LOGIN_SUCCESS,
+                    finishActivityIntent.putExtra(LOGGED_IN_USER_DATA, loggedInUser));
+
+            ToastUtils.shortToastCenter(this, "Login Successful").show();
+
+            finish();
         } else {
-            Toast failToast = Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT);
-            failToast.setGravity(Gravity.CENTER, 0, 0);
-            failToast.show();
+            ToastUtils.shortToastCenter(this, "Login Failed").show();
         }
     }
 
-    private void launchTempApplication() {
-        Intent intent = new Intent(this, TempApplication.class);
-        startActivity(intent);
+    //region [ Helper ] ================================= //
+
+    /**
+     * Authenticates user using username and password
+     *
+     * @param email given email
+     * @param password given password
+     * @return the user if email and password match a registered user, null otherwise
+     */
+    private User authenticateUser(String email, String password) {
+
+        for (User user : users) {
+            if (user.getUserID().equals(email) && user.getPassword().equals(password)) {
+                return user;
+            }
+        }
+
+        return null;
     }
+
+    //endregion
+
 
 }

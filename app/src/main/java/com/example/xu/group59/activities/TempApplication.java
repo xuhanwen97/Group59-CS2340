@@ -1,4 +1,4 @@
-package com.example.xu.group59;
+package com.example.xu.group59.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +8,8 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.example.xu.group59.R;
 
 public class TempApplication extends AppCompatActivity {
 

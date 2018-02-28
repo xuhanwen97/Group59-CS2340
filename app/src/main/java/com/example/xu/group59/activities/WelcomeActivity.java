@@ -75,7 +75,7 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     private void launchTempApplication() {
-        Intent intent = new Intent(this, TempApplication.class);
+        Intent intent = new Intent(this, HomelessHomeActivity.class);
         startActivity(intent);
     }
 

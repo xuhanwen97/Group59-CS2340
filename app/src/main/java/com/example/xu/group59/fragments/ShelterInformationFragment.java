@@ -1,7 +1,6 @@
 package com.example.xu.group59.fragments;
 
 import android.os.Bundle;
-import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +9,7 @@ import android.widget.TextView;
 import com.example.xu.group59.R;
 import com.example.xu.group59.models.Shelter;
 
-public class ShelterInformationFragment extends Fragment {
+public class ShelterInformationFragment extends android.support.v4.app.Fragment {
 
     private Shelter shelter;
 

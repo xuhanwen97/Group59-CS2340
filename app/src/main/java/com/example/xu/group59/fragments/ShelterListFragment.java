@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.xu.group59.Adapters.ShelterListRecyclerViewAdapter;
 import com.example.xu.group59.R;
 import com.example.xu.group59.Utils.FirebaseUtils;
+import com.example.xu.group59.Utils.ToastUtils;
 import com.example.xu.group59.models.Shelter;
 
 import java.util.ArrayList;
@@ -82,7 +83,7 @@ public class ShelterListFragment extends android.support.v4.app.Fragment impleme
 
     @Override
     public void onDataLoadError(String errorMessage) {
-
+        ToastUtils.shortToastCenter(this.getActivity(), errorMessage).show();
     }
 
     //endregion

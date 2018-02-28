@@ -15,10 +15,12 @@ import java.util.List;
 public class ShelterListRecyclerViewAdapter extends RecyclerView.Adapter {
 
     private List<Shelter> shelterList;
+    private ShelterListRecyclerViewListener mListener;
 
-    public ShelterListRecyclerViewAdapter(List<Shelter> shelterList) {
-        if (shelterList != null) {
+    public ShelterListRecyclerViewAdapter(List<Shelter> shelterList, ShelterListRecyclerViewListener listener) {
+        if (shelterList != null && listener != null) {
             this.shelterList =  shelterList;
+            this.mListener = listener;
         }
     }
 
@@ -50,11 +52,27 @@ public class ShelterListRecyclerViewAdapter extends RecyclerView.Adapter {
         public ShelterListViewHolder(View itemView) {
             super(itemView);
             shelterNameTextView = (TextView) itemView.findViewById(R.id.shelter_name_text_view);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mListener.onShelterClicked(shelterList.get(getAdapterPosition()));
+                }
+            });
+
         }
 
         public void bindData(Shelter shelter) {
-            shelterNameTextView.setText(shelter.getShelterName());
+            if (shelter.getShelterName() != null) {
+                shelterNameTextView.setText(shelter.getShelterName());
+            } else {
+                shelterNameTextView.setText(R.string.not_applicable);
+            }
         }
 
+    }
+
+    public interface ShelterListRecyclerViewListener {
+        void onShelterClicked(Shelter shelter);
     }
 }

@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.example.xu.group59.R;
 import com.example.xu.group59.fragments.ShelterListFragment;
+import com.example.xu.group59.models.Shelter;
 
 public class HomelessHomeActivity extends AppCompatActivity
         implements ShelterListFragment.ShelterListFragmentListener {
@@ -40,5 +41,9 @@ public class HomelessHomeActivity extends AppCompatActivity
         startActivity(intent);
 
         finish();
+    }
+
+    @Override
+    public void onShelterClicked(Shelter shelter) {
     }
 }

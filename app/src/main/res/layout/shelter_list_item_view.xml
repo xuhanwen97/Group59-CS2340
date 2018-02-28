@@ -9,6 +9,9 @@
         android:id="@+id/shelter_name_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="This is some temp text" />
+        android:textSize="30sp"
+        android:text="TestName"
+        android:layout_marginLeft="8dp"
+        />
 
 </FrameLayout>

@@ -5,33 +5,30 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.xu.group59.R;
+import com.example.xu.group59.fragments.ShelterListFragment;
 
-public class TempApplication extends AppCompatActivity {
-
-    Button logoutButton;
+public class HomelessHomeActivity extends AppCompatActivity
+        implements ShelterListFragment.ShelterListFragmentListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_temp_application);
+        setContentView(R.layout.activity_homeless_home);
+
+        if (savedInstanceState == null) {
+            ShelterListFragment shelterListFragment = ShelterListFragment.newInstance(this);
+
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.homeless_home_fragment_container, shelterListFragment, ShelterListFragment.TAG)
+                    .commit();
+        }
 
         //Sets up the top bar
         setSupportActionBar((Toolbar) findViewById(R.id.app_toolbar));
-
-        logoutButton = (Button) findViewById(R.id.temp_logout_button);
-
-        logoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                attemptLogout();
-            }
-        });
-
     }
 
     private void attemptLogout() {

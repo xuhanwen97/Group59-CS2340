@@ -11,6 +11,8 @@ import com.example.xu.group59.models.Shelter;
 
 public class ShelterInformationFragment extends android.support.v4.app.Fragment {
 
+    public static final String TAG = "shelter_information_fragment";
+
     private Shelter shelter;
 
     private TextView shelterNameTextView;

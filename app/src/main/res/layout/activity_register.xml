@@ -27,16 +27,32 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <EditText
-                        android:id="@+id/username_edit_text"
+                        android:id="@+id/name_edit_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/prompt_username"
+                        android:hint="@string/prompt_name"
                         android:inputType="text"
+                        android:maxLines="1"
+                        android:singleLine="true" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/email_edit_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/prompt_email"
+                        android:inputType="textEmailAddress"
                         android:maxLines="1"
                         android:singleLine="true" />
 
@@ -58,6 +74,12 @@
                         android:singleLine="true" />
 
                 </android.support.design.widget.TextInputLayout>
+
+                <CheckBox
+                    android:id="@+id/admin_check_box"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/checkbox_admin"/>
 
                 <Button
                     android:id="@+id/register_button"

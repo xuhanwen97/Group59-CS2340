@@ -164,9 +164,9 @@ public class HomelessHomeActivity extends AppCompatActivity implements
         Query query;
 
         if (queryString == null) {
-            query = FirebaseDatabase.getInstance().getReference().child(Shelter.shelterListKey).orderByChild("Shelter Name");
+            query = FirebaseDatabase.getInstance().getReference().child(Shelter.shelterListKey).orderByChild(Shelter.shelterNameKey);
         } else {
-            query = FirebaseDatabase.getInstance().getReference().child(Shelter.shelterListKey).orderByChild("Shelter Name").equalTo(queryString);
+            query = FirebaseDatabase.getInstance().getReference().child(Shelter.shelterListKey).orderByChild(Shelter.shelterNameKey).equalTo(queryString);
         }
 
         if (shelterListFragment != null) {
@@ -239,9 +239,9 @@ public class HomelessHomeActivity extends AppCompatActivity implements
 
     //Currently gender is a subset of restrictions
     private void setupShowGenderFilteredShelterList(final Shelter.Gender gender) {
-        DatabaseReference shelterListRef = FirebaseDatabase.getInstance().getReference().child(Shelter.shelterListKey);
+        DatabaseReference shelterListRef = FirebaseDatabase.getInstance().getReference(Shelter.shelterListKey);
 
-        shelterListRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        shelterListRef.orderByChild(Shelter.shelterNameKey).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<Shelter> shelterList = new ArrayList<>(10);
@@ -309,9 +309,9 @@ public class HomelessHomeActivity extends AppCompatActivity implements
     }
 
     private void setupShowRestrictionsFilteredShelterList(final Shelter.Restrictions restriction) {
-        DatabaseReference shelterListRef = FirebaseDatabase.getInstance().getReference().child(Shelter.shelterListKey);
+        DatabaseReference shelterListRef = FirebaseDatabase.getInstance().getReference(Shelter.shelterListKey);
 
-        shelterListRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        shelterListRef.orderByChild(Shelter.shelterNameKey).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<Shelter> shelterList = new ArrayList<>(10);

@@ -3,15 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp">
+    >
 
     <TextView
         android:id="@+id/shelter_name_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="30sp"
+        android:textSize="28sp"
         android:text="TestName"
-        android:layout_marginLeft="8dp"
+        android:layout_margin="8dp"
         />
 
 </FrameLayout>

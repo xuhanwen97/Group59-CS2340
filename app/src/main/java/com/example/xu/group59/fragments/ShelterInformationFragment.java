@@ -48,7 +48,7 @@ public class ShelterInformationFragment extends android.support.v4.app.Fragment 
         addressTextView.setText(shelter.getAddress());
         phoneNumberTextView.setText(shelter.getPhoneNumber());
         capacityTextView.setText(shelter.getCapacity());
-        restrictionsTextView.setText(shelter.getRestrictions());
+        restrictionsTextView.setText(shelter.getRestrictionsString());
         specialNotesTextView.setText(shelter.getSpecialNotes());
 
         return view;

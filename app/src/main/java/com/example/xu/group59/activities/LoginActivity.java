@@ -4,17 +4,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.xu.group59.R;
 import com.example.xu.group59.Utils.StringUtils;
 import com.example.xu.group59.Utils.ToastUtils;
-import com.example.xu.group59.models.User;
+import com.example.xu.group59.models.HomelessPerson;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -28,7 +31,10 @@ public class LoginActivity extends AppCompatActivity {
     Button loginButton;
     EditText emailEditText, passwordEditText;
 
-    ArrayList<User> users = new ArrayList<>();
+    ArrayList<HomelessPerson> homelessPeople = new ArrayList<>();
+
+    //Keeps track of if there is currently a login request
+    private Boolean waitingForLoginResponse = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,14 +54,13 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //When waiting for login response of an attempt, don't let a new login request be made
+                if (waitingForLoginResponse) {
+                    return;
+                }
                 attemptLogin();
             }
         });
-
-        //Grab the user list from intent
-        if (getIntent() != null && getIntent().hasExtra(WelcomeActivity.EXTRA_USER_LIST)) {
-            users = getIntent().getParcelableArrayListExtra(WelcomeActivity.EXTRA_USER_LIST);
-        }
     }
 
     @Override
@@ -83,21 +88,7 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        User loggedInUser = authenticateUser(givenEmail, givenPassword);
-
-        if (loggedInUser != null) {
-            ToastUtils.shortToastCenter(this, "Login Successful").show();
-
-            Intent finishActivityIntent = new Intent();
-            setResult(RESULT_LOGIN_SUCCESS,
-                    finishActivityIntent.putExtra(LOGGED_IN_USER_DATA, loggedInUser));
-
-            ToastUtils.shortToastCenter(this, "Login Successful").show();
-
-            finish();
-        } else {
-            ToastUtils.shortToastCenter(this, "Login Failed").show();
-        }
+        authenticateUser(givenEmail, givenPassword);
     }
 
     //region [ Helper ] ================================= //
@@ -105,19 +96,85 @@ public class LoginActivity extends AppCompatActivity {
     /**
      * Authenticates user using username and password
      *
-     * @param email given email
+     * @param login given login
      * @param password given password
-     * @return the user if email and password match a registered user, null otherwise
      */
-    private User authenticateUser(String email, String password) {
+    private void authenticateUser(String login, final String password) {
 
-        for (User user : users) {
-            if (user.getUserID().equals(email) && user.getPassword().equals(password)) {
-                return user;
+        waitingForLoginResponse = true;
+
+        DatabaseReference userReference =
+                FirebaseDatabase.getInstance().getReference(HomelessPerson.homelessPersonKey + "/" + login);
+
+        userReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                waitingForLoginResponse = false;
+
+                if (dataSnapshot.getValue() == null) {
+                    loginFailedToast();
+                } else {
+                    HomelessPerson hp = new HomelessPerson(dataSnapshot);
+
+                    if (password.equals(hp.getPassword())) {
+                        loginSuccessToast(hp);
+                    } else {
+                        loginFailedToast();
+                    }
+                }
             }
-        }
 
-        return null;
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                loginFailedToast();
+            }
+        });
+    }
+
+    private void loginSuccessToast(HomelessPerson loggedInHomelessPerson) {
+
+        ToastUtils.shortToastCenter(this, "Login Successful").show();
+
+        Intent finishActivityIntent = new Intent();
+        setResult(RESULT_LOGIN_SUCCESS,
+                finishActivityIntent.putExtra(LOGGED_IN_USER_DATA, loggedInHomelessPerson));
+
+        ToastUtils.shortToastCenter(this, "Login Successful").show();
+
+        finish();
+    }
+
+    private void loginFailedToast() {
+        ToastUtils.shortToastCenter(this, "Login Failed").show();
+    }
+//
+//    public void addHomelessToList(HomelessPerson homelessPerson) {
+//        if (homelessPerson != null) {
+//            homelessPeople.add(homelessPerson);
+//        }
+//    }
+
+    public void getUserList() {
+        DatabaseReference userReference =
+                FirebaseDatabase.getInstance().getReference(HomelessPerson.homelessPersonKey);
+
+        userReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot homelessSnapshot : dataSnapshot.getChildren()) {
+
+                    HomelessPerson hp = new HomelessPerson(homelessSnapshot);
+
+                    homelessPeople.add(hp);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     //endregion

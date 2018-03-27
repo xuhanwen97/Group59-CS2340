@@ -14,9 +14,15 @@ import com.example.xu.group59.R;
 import com.example.xu.group59.Utils.StringUtils;
 import com.example.xu.group59.Utils.ToastUtils;
 import com.example.xu.group59.models.Admin;
-import com.example.xu.group59.models.User;
+import com.example.xu.group59.models.HomelessPerson;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -29,7 +35,8 @@ public class RegisterActivity extends AppCompatActivity {
     CheckBox adminCheckbox;
     EditText emailEditText, passwordEditText, nameEditText;
 
-    ArrayList<User> users = new ArrayList<>();
+    //Keeps track of if there is currently a login request
+    private Boolean waitingForLoginResponse = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,14 +58,13 @@ public class RegisterActivity extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Waiting result of a previous register, deactivate the register button
+                if (waitingForLoginResponse) {
+                    return;
+                }
                 attemptRegister();
             }
         });
-
-        //Grab the user list from intent
-        if (getIntent() != null && getIntent().hasExtra(WelcomeActivity.EXTRA_USER_LIST)) {
-            users = getIntent().getParcelableArrayListExtra(WelcomeActivity.EXTRA_USER_LIST);
-        }
 
     }
 
@@ -77,7 +83,6 @@ public class RegisterActivity extends AppCompatActivity {
         String email = emailEditText.getText().toString();
         String password = passwordEditText.getText().toString();
         String name = nameEditText.getText().toString();
-        Boolean isAdmin = adminCheckbox.isChecked();
 
         if (StringUtils.isNullOrEmpty(email)) {
             ToastUtils.shortToastCenter(this, "Email cannot be empty").show();
@@ -95,33 +100,66 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         //Check if user already exists, show toast if already exists
-        for (User user : users) {
-            if (user.getUserID().equals(email)) {
-                ToastUtils.shortToastCenter(this, "User with email already exists").show();
-                return;
+        waitingForLoginResponse = true;
+        DatabaseReference checkUserReference =
+                FirebaseDatabase.getInstance().getReference(HomelessPerson.homelessPersonKey + "/" + email);
+
+        checkUserReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                waitingForLoginResponse = false;
+
+                if (dataSnapshot.getValue() != null) {
+                    registerUserExistsToast();
+                } else {
+                    registerUser();
+                }
             }
-        }
 
-        //Create user, if successful end the activity
-        try {
-            User createdUser;
-
-            if (isAdmin) {
-                createdUser = new Admin(email, password, name);
-            } else {
-                createdUser = new User(email, password, name);
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                registerFailedToast();
             }
+        });
+    }
 
-            Intent finishActivityIntent = new Intent();
-            setResult(RESULT_REGISTER_SUCCESS,
-                    finishActivityIntent.putExtra(REGISTERED_USER_DATA, createdUser));
+    //Make the calls to firebase that create the user in there
+    private void registerUser() {
+        String email = emailEditText.getText().toString();
+        String password = passwordEditText.getText().toString();
+        String name = nameEditText.getText().toString();
+        Boolean isAdmin = adminCheckbox.isChecked();
 
-            ToastUtils.shortToastCenter(this, "Register Successful").show();
+        //Email is the key to the HomelessPerson/user/admin created
+        DatabaseReference createHomelessReference =
+                FirebaseDatabase.getInstance().getReference(HomelessPerson.homelessPersonKey + "/" + email);
 
-            finish();
-        } catch (Exception ex) {
-            ToastUtils.shortToastCenter(this, "Creating user failed").show();
-        }
+        HashMap newHomelessData = new HashMap();
+        newHomelessData.put(HomelessPerson.currentShelterKey, "");
+        newHomelessData.put(HomelessPerson.nameKey, name);
+        newHomelessData.put(HomelessPerson.passwordKey, password);
+        newHomelessData.put(HomelessPerson.statusKey,
+                isAdmin ? HomelessPerson.defaultAdminStatus() : HomelessPerson.defaultHomelessStatus());
+
+        createHomelessReference.setValue(newHomelessData);
+
+        registerSuccessToast();
+    }
+
+
+    private void registerSuccessToast() {
+        ToastUtils.shortToastCenter(this, "Register Successful").show();
+
+        finish();
+
+    }
+
+    private void registerUserExistsToast() {
+        ToastUtils.shortToastCenter(this, "Homeless Person with email already exists").show();
+    }
+
+    private void registerFailedToast() {
+        ToastUtils.shortToastCenter(this, "Creating user failed").show();
     }
 
 }

@@ -1,6 +1,6 @@
 package com.example.xu.group59.models;
 
-public class Admin extends User {
+public class Admin extends HomelessPerson {
 
     //region [ Declarations ] ================================= //
 

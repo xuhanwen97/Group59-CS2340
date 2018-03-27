@@ -1,6 +1,8 @@
 package com.example.xu.group59.models;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by xu on 2/27/18
@@ -8,16 +10,46 @@ import java.util.HashMap;
 
 public class Shelter {
 
-    public static final String shelterListKey = "Shelters";
+    public enum Gender {
+        men(Restrictions.men.getName()), women(Restrictions.women.getName());
 
-    public static final String addressKey = "Address";
-    public static final String capacityKey= "Capacity";
-    public static final String latitudeKey = "Latitude";
-    public static final String longitudeKey = "Longitude";
-    public static final String phoneNumberKey = "Phone Number";
-    public static final String restrictionsKey = "Restrictions";
-    public static final String shelterNameKey = "Shelter Name";
-    public static final String specialNotesKey = "Special Notes";
+        String name;
+
+        Gender(String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
+    }
+
+    public enum Restrictions {
+        men("Men"), women("Women"), children("Children"), youngAdults("Young Adults"), families("Families"),
+        familiesNewborns("Families With Newborns"), familiesChildrenUnder7("Families With Children Under 7"),
+        veterans("Veterans");
+
+        private String name;
+
+        Restrictions(String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
+    }
+
+    public static final String shelterListKey = "shelters";
+
+    public static final String addressKey = "address";
+    public static final String capacityKey= "capacity";
+    public static final String latitudeKey = "latitude";
+    public static final String longitudeKey = "longitude";
+    public static final String phoneNumberKey = "phone_number";
+    public static final String restrictionsKey = "restrictions";
+    public static final String shelterNameKey = "name";
+    public static final String specialNotesKey = "special_notes";
     public static final String uniqueKeyKey = "Unique Key";
 
     private String address;
@@ -25,7 +57,7 @@ public class Shelter {
     private double latitude;
     private double longitude;
     private String phoneNumber;
-    private String restrictions;
+    private List<Restrictions> restrictions;
     private String shelterName;
     private String specialNotes;
     private int uniqueKey;
@@ -37,11 +69,38 @@ public class Shelter {
             latitude = (double) shelterData.get(latitudeKey);
             longitude = (double) shelterData.get(longitudeKey);
             phoneNumber = (String) shelterData.get(phoneNumberKey);
-            restrictions = (String) shelterData.get(restrictionsKey);
             shelterName = (String) shelterData.get(shelterNameKey);
             specialNotes = (String) shelterData.get(specialNotesKey);
-            uniqueKey = ((Long) shelterData.get(uniqueKeyKey)).intValue();
+
+            restrictions = new ArrayList<>(10);
+            parseRestrictions((HashMap) shelterData.get(restrictionsKey));
         }
+    }
+
+    private void parseRestrictions(HashMap restrictionData) {
+        if (restrictionData != null) {
+            for (Object statusString : restrictionData.keySet()) {
+                for (Restrictions r : Restrictions.values()) {
+                    if (statusString.equals(r.getName())) {
+                        restrictions.add(r);
+                    }
+                }
+            }
+        }
+    }
+
+    public String getRestrictionsString() {
+        if (restrictions == null || restrictions.size() == 0) {
+            return "No Restrictions";
+        }
+
+        String restrictionsString = "";
+
+        for (Restrictions r: restrictions) {
+            restrictionsString = restrictionsString + r.getName() + ", ";
+        }
+
+        return restrictionsString.substring(0, restrictionsString.length() - 3);
     }
 
     public int parseToInt(Object input) {
@@ -100,11 +159,11 @@ public class Shelter {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getRestrictions() {
+    public List<Restrictions> getRestrictions() {
         return restrictions;
     }
 
-    public void setRestrictions(String restrictions) {
+    public void setRestrictions(List<Restrictions> restrictions) {
         this.restrictions = restrictions;
     }
 

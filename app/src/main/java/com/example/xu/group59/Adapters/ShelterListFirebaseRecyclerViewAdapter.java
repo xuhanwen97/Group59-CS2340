@@ -9,18 +9,26 @@ import android.widget.TextView;
 
 import com.example.xu.group59.R;
 import com.example.xu.group59.models.Shelter;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 
-import java.util.List;
+public class ShelterListFirebaseRecyclerViewAdapter extends FirebaseRecyclerAdapter<Shelter, ShelterListFirebaseRecyclerViewAdapter.ShelterListViewHolder> {
 
-public class ShelterListRecyclerViewAdapter extends RecyclerView.Adapter<ShelterListRecyclerViewAdapter.ShelterListViewHolder> {
+    private ShelterListRecyclerViewAdapter.ShelterListRecyclerViewListener mListener;
 
-    private ShelterListRecyclerViewListener mListener;
-    private List<Shelter> shelterList;
+    /**
+     * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
+     * {@link FirebaseRecyclerOptions} for configuration options.
+     *
+     * @param options
+     */
+    public ShelterListFirebaseRecyclerViewAdapter(@NonNull FirebaseRecyclerOptions<Shelter> options) {
+        super(options);
+    }
 
-    public static ShelterListRecyclerViewAdapter newInstance(ShelterListRecyclerViewListener listener, List<Shelter> shelterList) {
-        ShelterListRecyclerViewAdapter adapter = new ShelterListRecyclerViewAdapter();
+    public static ShelterListFirebaseRecyclerViewAdapter newInstance(ShelterListRecyclerViewAdapter.ShelterListRecyclerViewListener listener, FirebaseRecyclerOptions<Shelter> options) {
+        ShelterListFirebaseRecyclerViewAdapter adapter = new ShelterListFirebaseRecyclerViewAdapter(options);
         adapter.mListener = listener;
-        adapter.shelterList = shelterList;
 
         return adapter;
     }
@@ -32,18 +40,13 @@ public class ShelterListRecyclerViewAdapter extends RecyclerView.Adapter<Shelter
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ShelterListViewHolder holder, int position) {
-        holder.bindData(shelterList.get(position));
-    }
-
-    @Override
     public int getItemViewType(int position) {
         return R.layout.shelter_list_item_view;
     }
 
     @Override
-    public int getItemCount() {
-        return shelterList.size();
+    protected void onBindViewHolder(@NonNull ShelterListViewHolder holder, int position, @NonNull Shelter model) {
+        holder.bindData(model);
     }
 
     public class ShelterListViewHolder extends RecyclerView.ViewHolder {
@@ -73,9 +76,5 @@ public class ShelterListRecyclerViewAdapter extends RecyclerView.Adapter<Shelter
             }
         }
 
-    }
-
-    public interface ShelterListRecyclerViewListener {
-        void onShelterClicked(Shelter shelter);
     }
 }

@@ -32,7 +32,7 @@ public class FirebaseUtils {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<Shelter> shelterList = new ArrayList<>(10);
                 for (DataSnapshot shelterSnapshot : dataSnapshot.getChildren()) {
-                    Shelter tempShelter = new Shelter((HashMap) shelterSnapshot.getValue());
+                    Shelter tempShelter = new Shelter(shelterSnapshot);
                     shelterList.add(tempShelter);
                 }
 

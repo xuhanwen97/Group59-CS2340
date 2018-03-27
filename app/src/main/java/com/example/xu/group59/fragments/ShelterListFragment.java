@@ -93,7 +93,7 @@ public class ShelterListFragment extends android.support.v4.app.Fragment impleme
                         @NonNull
                         @Override
                         public Shelter parseSnapshot(@NonNull DataSnapshot snapshot) {
-                            Shelter shelter = new Shelter((HashMap) snapshot.getValue());
+                            Shelter shelter = new Shelter(snapshot);
                             return shelter;
                         }
                     })
@@ -146,26 +146,6 @@ public class ShelterListFragment extends android.support.v4.app.Fragment impleme
         } else {
             Toast.makeText(this.getActivity(), "Incorrect shelter data", Toast.LENGTH_SHORT).show();
         }
-    }
-
-    public void reloadWithQuery(Query query) {
-
-        FirebaseRecyclerOptions<Shelter> options = new FirebaseRecyclerOptions.Builder<Shelter>()
-                .setQuery(query, new SnapshotParser<Shelter>() {
-                    @NonNull
-                    @Override
-                    public Shelter parseSnapshot(@NonNull DataSnapshot snapshot) {
-                        Shelter shelter = new Shelter((HashMap) snapshot.getValue());
-                        return shelter;
-                    }
-                })
-                .build();
-
-        mAdapter = ShelterListFirebaseRecyclerViewAdapter.newInstance(this, options);
-
-        mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.invalidate();
-
     }
 
     public interface ShelterListFragmentListener {

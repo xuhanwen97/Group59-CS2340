@@ -73,8 +73,9 @@ public class WelcomeActivity extends AppCompatActivity {
         startActivityForResult(intent, ACTIVITY_REGISTER);
     }
 
-    private void launchTempApplication() {
+    private void launchTempApplication(HomelessPerson loggedInUser) {
         Intent intent = new Intent(this, HomelessHomeActivity.class);
+        intent.putExtra(HomelessHomeActivity.LOGGED_IN_USER_TAG, loggedInUser);
         startActivity(intent);
     }
 
@@ -99,7 +100,7 @@ public class WelcomeActivity extends AppCompatActivity {
                     //user that's logged in
                     HomelessPerson loggedInHomelessPerson = data.getParcelableExtra(LoginActivity.LOGGED_IN_USER_DATA);
 
-                    launchTempApplication();
+                    launchTempApplication(loggedInHomelessPerson);
                 }
                 break;
         }

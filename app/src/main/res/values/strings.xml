@@ -34,4 +34,6 @@
     <string name="title_filter_shelter">Filter Shelters</string>
     <string name="title_gender_filter">Gender Filter</string>
     <string name="title_restrictions_filter">Restrictions Filter</string>
+    <string name="reserved_spots_label">Reserved Spots (10 max):</string>
+    <string name="reserve_spots_button">Reserve Spots</string>
 </resources>

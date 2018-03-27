@@ -1,5 +1,10 @@
 package com.example.xu.group59.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import com.google.firebase.database.DataSnapshot;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,7 +13,7 @@ import java.util.List;
  * Created by xu on 2/27/18
  */
 
-public class Shelter {
+public class Shelter implements Parcelable {
 
     public enum Gender {
         men(Restrictions.men.getName()), women(Restrictions.women.getName());
@@ -40,7 +45,11 @@ public class Shelter {
         }
     }
 
+    public static final int singleUserMaxReservation = 10;
+
     public static final String shelterListKey = "shelters";
+    public static final String shelterOccupancyKey = "shelter_occupancy";
+    public static final String shelterOccupancyTotalReservedKey = "total_reserved";
 
     public static final String addressKey = "address";
     public static final String capacityKey= "capacity";
@@ -50,22 +59,27 @@ public class Shelter {
     public static final String restrictionsKey = "restrictions";
     public static final String shelterNameKey = "name";
     public static final String specialNotesKey = "special_notes";
-    public static final String uniqueKeyKey = "Unique Key";
+    public static final String shelterKeyKey = "Unique Key";
 
     private String address;
-    private String capacity;
+    private int capacity;
     private double latitude;
     private double longitude;
     private String phoneNumber;
     private List<Restrictions> restrictions;
     private String shelterName;
     private String specialNotes;
-    private int uniqueKey;
+    private String shelterKey;
+
+    public Shelter(DataSnapshot dataSnapshot) {
+        this((HashMap) dataSnapshot.getValue());
+        this.shelterKey = dataSnapshot.getKey();
+    }
 
     public Shelter(HashMap<String, Object> shelterData) {
         if (shelterData != null) {
             address = (String) shelterData.get(addressKey);
-            capacity = shelterData.get(capacityKey).toString();
+            capacity = ((Long)shelterData.get(capacityKey)).intValue();
             latitude = (double) shelterData.get(latitudeKey);
             longitude = (double) shelterData.get(longitudeKey);
             phoneNumber = (String) shelterData.get(phoneNumberKey);
@@ -127,11 +141,11 @@ public class Shelter {
         this.address = address;
     }
 
-    public String getCapacity() {
+    public int getCapacity() {
         return capacity;
     }
 
-    public void setCapacity(String capacity) {
+    public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
 
@@ -183,11 +197,55 @@ public class Shelter {
         this.specialNotes = specialNotes;
     }
 
-    public int getUniqueKey() {
-        return uniqueKey;
+    public String getShelterKey() {
+        return shelterKey;
     }
 
-    public void setUniqueKey(int uniqueKey) {
-        this.uniqueKey = uniqueKey;
+    public void setShelterKey(String shelterKey) {
+        this.shelterKey = shelterKey;
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.address);
+        dest.writeInt(this.capacity);
+        dest.writeDouble(this.latitude);
+        dest.writeDouble(this.longitude);
+        dest.writeString(this.phoneNumber);
+        dest.writeList(this.restrictions);
+        dest.writeString(this.shelterName);
+        dest.writeString(this.specialNotes);
+        dest.writeString(this.shelterKey);
+    }
+
+    protected Shelter(Parcel in) {
+        this.address = in.readString();
+        this.capacity = in.readInt();
+        this.latitude = in.readDouble();
+        this.longitude = in.readDouble();
+        this.phoneNumber = in.readString();
+        this.restrictions = new ArrayList<Restrictions>();
+        in.readList(this.restrictions, Restrictions.class.getClassLoader());
+        this.shelterName = in.readString();
+        this.specialNotes = in.readString();
+        this.shelterKey = in.readString();
+    }
+
+    public static final Parcelable.Creator<Shelter> CREATOR = new Parcelable.Creator<Shelter>() {
+        @Override
+        public Shelter createFromParcel(Parcel source) {
+            return new Shelter(source);
+        }
+
+        @Override
+        public Shelter[] newArray(int size) {
+            return new Shelter[size];
+        }
+    };
 }

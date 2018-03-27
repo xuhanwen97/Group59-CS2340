@@ -21,6 +21,7 @@ import com.example.xu.group59.R;
 import com.example.xu.group59.Utils.ToastUtils;
 import com.example.xu.group59.fragments.ShelterInformationFragment;
 import com.example.xu.group59.fragments.ShelterListFragment;
+import com.example.xu.group59.models.HomelessPerson;
 import com.example.xu.group59.models.Shelter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,7 +31,6 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class HomelessHomeActivity extends AppCompatActivity implements
@@ -40,12 +40,23 @@ public class HomelessHomeActivity extends AppCompatActivity implements
         ShelterListRestrictionsFilterFragment.ShelterListRestrictionsFilterFragmentListener{
 
     public static final String TAG = "homeless_home_activity";
+    public static final String LOGGED_IN_USER_TAG = "logged_in_user";
     private SearchView mSearchView;
+
+    private HomelessPerson loggedInUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homeless_home);
+
+        //Grab the signed in user
+        if (getIntent().getExtras().get(LOGGED_IN_USER_TAG) != null) {
+            loggedInUser = (HomelessPerson) getIntent().getExtras().get(LOGGED_IN_USER_TAG);
+        } else {
+            loggedInUser = null;
+        }
+
         //Sets up the top bar
         setSupportActionBar((Toolbar) findViewById(R.id.app_toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -106,6 +117,7 @@ public class HomelessHomeActivity extends AppCompatActivity implements
 
 
     private void attemptLogout() {
+        loggedInUser = null;
         Toast successToast = Toast.makeText(this, "Logout Successful", Toast.LENGTH_SHORT);
         successToast.setGravity(Gravity.CENTER, 0, 0);
         successToast.show();
@@ -123,7 +135,7 @@ public class HomelessHomeActivity extends AppCompatActivity implements
             return;
         }
 
-        ShelterInformationFragment shelterInfoFragment = ShelterInformationFragment.newInstance(shelter);
+        ShelterInformationFragment shelterInfoFragment = ShelterInformationFragment.newInstance(shelter, loggedInUser);
 
         getSupportFragmentManager()
                 .beginTransaction()
@@ -246,7 +258,7 @@ public class HomelessHomeActivity extends AppCompatActivity implements
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<Shelter> shelterList = new ArrayList<>(10);
                 for (DataSnapshot shelterSnapshot : dataSnapshot.getChildren()) {
-                    Shelter tempShelter = new Shelter((HashMap) shelterSnapshot.getValue());
+                    Shelter tempShelter = new Shelter(shelterSnapshot);
                     shelterList.add(tempShelter);
                 }
                 showGenderFilteredShelterList(shelterList, gender);
@@ -316,7 +328,7 @@ public class HomelessHomeActivity extends AppCompatActivity implements
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<Shelter> shelterList = new ArrayList<>(10);
                 for (DataSnapshot shelterSnapshot : dataSnapshot.getChildren()) {
-                    Shelter tempShelter = new Shelter((HashMap) shelterSnapshot.getValue());
+                    Shelter tempShelter = new Shelter(shelterSnapshot);
                     shelterList.add(tempShelter);
                 }
                 showRestrictionsFilteredShelterList(shelterList, restriction);
@@ -347,5 +359,13 @@ public class HomelessHomeActivity extends AppCompatActivity implements
                 .beginTransaction()
                 .replace(R.id.homeless_home_fragment_container, shelterListFragment, ShelterListFragment.TAG)
                 .commit();
+    }
+
+    public HomelessPerson getLoggedInUser() {
+        return loggedInUser;
+    }
+
+    public void setLoggedInUser(HomelessPerson loggedInUser) {
+        this.loggedInUser = loggedInUser;
     }
 }

@@ -15,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.xu.group59.ShelterListMapActivity;
 import com.example.xu.group59.fragments.ShelterListRestrictionsFilterFragment;
 import com.example.xu.group59.fragments.ShelterListGenderFilterFragment;
 import com.example.xu.group59.R;
@@ -83,7 +84,7 @@ public class HomelessHomeActivity extends AppCompatActivity implements
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.simple_filter_search_menu, menu);
+        inflater.inflate(R.menu.simple_filter_search_map_menu, menu);
 
         // Associate searchable configuration with the SearchView
         SearchManager searchManager =
@@ -102,6 +103,9 @@ public class HomelessHomeActivity extends AppCompatActivity implements
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.shelter_map_option:
+                showShelterMap();
+                return true;
             case R.id.filter_gender_option:
                 showGenderFilterFragment();
                 return true;
@@ -269,6 +273,12 @@ public class HomelessHomeActivity extends AppCompatActivity implements
 
             }
         });
+    }
+
+    private void showShelterMap() {
+        Intent intent = new Intent(this, ShelterListMapActivity.class);
+
+        startActivity(intent);
     }
 
     private void showGenderFilteredShelterList(List<Shelter> shelterList, Shelter.Gender gender) {

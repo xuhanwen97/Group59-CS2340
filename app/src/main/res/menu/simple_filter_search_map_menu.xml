@@ -8,6 +8,13 @@
         app:actionViewClass="android.support.v7.widget.SearchView">
     </item>
 
+    <item android:id="@+id/shelter_map_option"
+        android:icon="@drawable/ic_map_black_24dp"
+        android:title="@string/title_shelter_map"
+        app:showAsAction="ifRoom"
+        >
+    </item>
+
     <item android:id="@+id/shelter_list_filters_option"
         android:icon="@drawable/ic_filter_list_black_24dp"
         app:showAsAction="ifRoom"

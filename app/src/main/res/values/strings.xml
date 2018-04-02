@@ -31,6 +31,7 @@
     <string name="address_label">Address:</string>
     <string name="homeless_home_label">HomelessHomeActivityLabel</string>
     <string name="title_search_shelter">Search Shelter</string>
+    <string name="title_shelter_map">Shelter Map</string>
     <string name="title_filter_shelter">Filter Shelters</string>
     <string name="title_gender_filter">Gender Filter</string>
     <string name="title_restrictions_filter">Restrictions Filter</string>

@@ -3,11 +3,14 @@ package com.example.xu.group59.activities;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -15,13 +18,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.example.xu.group59.ShelterListMapActivity;
 import com.example.xu.group59.fragments.ShelterListRestrictionsFilterFragment;
 import com.example.xu.group59.fragments.ShelterListGenderFilterFragment;
 import com.example.xu.group59.R;
 import com.example.xu.group59.Utils.ToastUtils;
 import com.example.xu.group59.fragments.ShelterInformationFragment;
 import com.example.xu.group59.fragments.ShelterListFragment;
+import com.example.xu.group59.fragments.ShelterMapFragment;
 import com.example.xu.group59.models.HomelessPerson;
 import com.example.xu.group59.models.Shelter;
 import com.google.firebase.database.DataSnapshot;
@@ -32,6 +35,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.IdentityHashMap;
 import java.util.List;
 
 public class HomelessHomeActivity extends AppCompatActivity implements
@@ -43,6 +47,8 @@ public class HomelessHomeActivity extends AppCompatActivity implements
     public static final String TAG = "homeless_home_activity";
     public static final String LOGGED_IN_USER_TAG = "logged_in_user";
     private SearchView mSearchView;
+
+    private List<Shelter> currentShelterList;
 
     private HomelessPerson loggedInUser;
 
@@ -62,8 +68,7 @@ public class HomelessHomeActivity extends AppCompatActivity implements
         setSupportActionBar((Toolbar) findViewById(R.id.app_toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.title_activity_homeless_home);
-
-        launchShelterList(null);
+        setupShowShelterList(null);
     }
 
     @Override
@@ -75,7 +80,7 @@ public class HomelessHomeActivity extends AppCompatActivity implements
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
             //use the query to search your data somehow
-            launchShelterList(query);
+            setupShowShelterList(query);
         }
     }
 
@@ -96,7 +101,6 @@ public class HomelessHomeActivity extends AppCompatActivity implements
                 searchManager.getSearchableInfo(getComponentName()));
 
         mSearchView = searchView;
-
         return true;
     }
 
@@ -157,7 +161,7 @@ public class HomelessHomeActivity extends AppCompatActivity implements
         if (mSearchView != null && !mSearchView.isIconified()) {
             mSearchView.setIconified(true);
             mSearchView.onActionViewCollapsed();
-            launchShelterList(null);
+            setupShowShelterList(null);
             return true;
         }
 
@@ -172,11 +176,7 @@ public class HomelessHomeActivity extends AppCompatActivity implements
 
     //region [ fragment helpers ] ================================= //
 
-    private void launchShelterList(String queryString) {
-
-        ShelterListFragment shelterListFragment
-                = (ShelterListFragment) getSupportFragmentManager().findFragmentByTag(ShelterListFragment.TAG);
-
+    private void setupShowShelterList(String queryString) {
         Query query;
 
         if (queryString == null) {
@@ -185,17 +185,43 @@ public class HomelessHomeActivity extends AppCompatActivity implements
             query = FirebaseDatabase.getInstance().getReference().child(Shelter.shelterListKey).orderByChild(Shelter.shelterNameKey).equalTo(queryString);
         }
 
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<Shelter> shelterList = new ArrayList<>(10);
+                for (DataSnapshot shelterSnapshot : dataSnapshot.getChildren()) {
+                    Shelter tempShelter = new Shelter(shelterSnapshot);
+                    shelterList.add(tempShelter);
+                }
+                showShelterList(shelterList);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    //TODO: Figure out if the if statement is needed :/
+    private void showShelterList(List<Shelter> sheltersList) {
+        ShelterListFragment shelterListFragment
+                = (ShelterListFragment) getSupportFragmentManager().findFragmentByTag(ShelterListFragment.TAG);
+
         if (shelterListFragment != null) {
             //replace shelter list fragment, don't make new
-            shelterListFragment = ShelterListFragment.newInstanceWithQuery(this, query);
+            shelterListFragment = ShelterListFragment.newInstance(this, sheltersList);
 
+            currentShelterList = sheltersList;
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.homeless_home_fragment_container, shelterListFragment, ShelterListFragment.TAG)
                     .commit();
         } else {
-            shelterListFragment = ShelterListFragment.newInstanceWithQuery(this, query);
+            shelterListFragment = ShelterListFragment.newInstance(this, sheltersList);
 
+            currentShelterList = sheltersList;
             getSupportFragmentManager()
                     .beginTransaction()
                     .add(R.id.homeless_home_fragment_container, shelterListFragment, ShelterListFragment.TAG)
@@ -230,7 +256,7 @@ public class HomelessHomeActivity extends AppCompatActivity implements
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        launchShelterList(query);
+        setupShowShelterList(query);
         return false;
     }
 
@@ -247,7 +273,7 @@ public class HomelessHomeActivity extends AppCompatActivity implements
         onSupportNavigateUp();
 
         if (gender == null) {
-            launchShelterList(null);
+            setupShowShelterList(null);
         } else {
             setupShowGenderFilteredShelterList(gender);
         }
@@ -275,12 +301,6 @@ public class HomelessHomeActivity extends AppCompatActivity implements
         });
     }
 
-    private void showShelterMap() {
-        Intent intent = new Intent(this, ShelterListMapActivity.class);
-
-        startActivity(intent);
-    }
-
     private void showGenderFilteredShelterList(List<Shelter> shelterList, Shelter.Gender gender) {
         if (shelterList == null || gender == null) {
             return;
@@ -301,30 +321,19 @@ public class HomelessHomeActivity extends AppCompatActivity implements
             }
         }
 
+        currentShelterList = filteredList;
         ShelterListFragment shelterListFragment = ShelterListFragment.newInstance(this, filteredList);
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.homeless_home_fragment_container, shelterListFragment, ShelterListFragment.TAG)
                 .commit();
     }
-
-    private Shelter.Restrictions convertGenderToRestrictions(Shelter.Gender gender) {
-
-        for (Shelter.Restrictions r : Shelter.Restrictions.values()) {
-            if (r.getName().equals(gender.getName())) {
-                return r;
-            }
-        }
-
-        return null;
-    }
-
     @Override
     public void onRestrictionsFilterClicked(Shelter.Restrictions restriction) {
         onSupportNavigateUp();
 
         if (restriction == null) {
-            launchShelterList(null);
+            setupShowShelterList(null);
         } else {
             setupShowRestrictionsFilteredShelterList(restriction);
         }
@@ -364,11 +373,23 @@ public class HomelessHomeActivity extends AppCompatActivity implements
             }
         }
 
+        currentShelterList = filteredList;
         ShelterListFragment shelterListFragment = ShelterListFragment.newInstance(this, filteredList);
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.homeless_home_fragment_container, shelterListFragment, ShelterListFragment.TAG)
                 .commit();
+    }
+
+    private Shelter.Restrictions convertGenderToRestrictions(Shelter.Gender gender) {
+
+        for (Shelter.Restrictions r : Shelter.Restrictions.values()) {
+            if (r.getName().equals(gender.getName())) {
+                return r;
+            }
+        }
+
+        return null;
     }
 
     public HomelessPerson getLoggedInUser() {
@@ -378,4 +399,18 @@ public class HomelessHomeActivity extends AppCompatActivity implements
     public void setLoggedInUser(HomelessPerson loggedInUser) {
         this.loggedInUser = loggedInUser;
     }
+
+    private void showShelterMap() {
+        if (currentShelterList == null) {
+            return;
+        }
+
+        ShelterMapFragment shelterMapFragment = ShelterMapFragment.newInstance(currentShelterList);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.homeless_home_fragment_container, shelterMapFragment, ShelterMapFragment.TAG)
+                .addToBackStack("temp")
+                .commit();
+    }
+
 }

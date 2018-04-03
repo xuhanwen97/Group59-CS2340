@@ -61,9 +61,6 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity
-            android:name=".ShelterListMapActivity"
-            android:label="@string/title_activity_shelter_list_map"></activity>
     </application>
 
 </manifest>

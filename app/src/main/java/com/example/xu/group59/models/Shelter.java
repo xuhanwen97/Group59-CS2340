@@ -36,7 +36,7 @@ public class Shelter implements Parcelable {
         familiesNewborns("Families With Newborns"), familiesChildrenUnder7("Families With Children Under 7"),
         veterans("Veterans");
 
-        private String name;
+        private final String name;
 
         Restrictions(String name) {
             this.name = name;
@@ -106,7 +106,7 @@ public class Shelter implements Parcelable {
     }
 
     public String getRestrictionsString() {
-        if (restrictions == null || restrictions.size() == 0) {
+        if ((restrictions == null) || (restrictions.isEmpty())) {
             return "No Restrictions";
         }
 

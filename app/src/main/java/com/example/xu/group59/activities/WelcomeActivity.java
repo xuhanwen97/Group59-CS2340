@@ -22,7 +22,8 @@ public class WelcomeActivity extends AppCompatActivity {
 
     HomelessPerson defaultHomelessPerson = new HomelessPerson("user", "pass", "default_user");
 
-    Button loginButton, registerButton;
+    Button loginButton;
+    Button registerButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +34,8 @@ public class WelcomeActivity extends AppCompatActivity {
         setSupportActionBar((Toolbar) findViewById(R.id.app_toolbar));
 
         //Grabs each view from the layout
-        loginButton = (Button) findViewById(R.id.welcome_login_button);
-        registerButton = (Button) findViewById(R.id.welcome_register_button);
+        loginButton = findViewById(R.id.welcome_login_button);
+        registerButton = findViewById(R.id.welcome_register_button);
 
         //sets an onclick listener for the login button
         loginButton.setOnClickListener(new View.OnClickListener() {

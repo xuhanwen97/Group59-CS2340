@@ -64,12 +64,12 @@ public class RestrictionsFilterAdapter extends RecyclerView.Adapter<Restrictions
 
     public class RestrictionsFilterViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView filterNameTextView;
+        private final TextView filterNameTextView;
         private Shelter.Restrictions restriction;
 
         public RestrictionsFilterViewHolder(View itemView) {
             super(itemView);
-            filterNameTextView = (TextView) itemView.findViewById(R.id.filter_name_text_view);
+            filterNameTextView = itemView.findViewById(R.id.filter_name_text_view);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -80,7 +80,7 @@ public class RestrictionsFilterAdapter extends RecyclerView.Adapter<Restrictions
         }
 
         public void bindData(Shelter.Restrictions restriction) {
-            if (restriction != null && restriction.getName() != null) {
+            if ((restriction != null) && (restriction.getName() != null)) {
                 this.restriction = restriction;
                 filterNameTextView.setText(restriction.getName());
             } else {

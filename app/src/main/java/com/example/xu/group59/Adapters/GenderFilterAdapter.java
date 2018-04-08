@@ -67,12 +67,12 @@ public class GenderFilterAdapter extends RecyclerView.Adapter<GenderFilterAdapte
 
     public class GenderFilterViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView filterNameTextView;
+        private final TextView filterNameTextView;
         private Shelter.Gender gender;
 
         public GenderFilterViewHolder(View itemView) {
             super(itemView);
-            filterNameTextView = (TextView) itemView.findViewById(R.id.filter_name_text_view);
+            filterNameTextView = itemView.findViewById(R.id.filter_name_text_view);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -83,7 +83,7 @@ public class GenderFilterAdapter extends RecyclerView.Adapter<GenderFilterAdapte
         }
 
         public void bindData(Shelter.Gender gender) {
-            if (gender != null && gender.getName() != null) {
+            if ((gender != null) && (gender.getName() != null)) {
                 this.gender = gender;
                 filterNameTextView.setText(gender.getName());
             } else {

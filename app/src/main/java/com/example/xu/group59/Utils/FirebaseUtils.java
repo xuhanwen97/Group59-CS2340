@@ -22,7 +22,7 @@ import java.util.List;
 public class FirebaseUtils {
     private static final String TAG = "firebase_utils";
 
-    private static FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+    private static final FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
 
     public static void updateShelterList(final FirebaseUtilsListener listener) {
 

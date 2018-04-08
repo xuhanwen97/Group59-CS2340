@@ -150,7 +150,7 @@ public class ShelterInformationFragment extends android.support.v4.app.Fragment 
                 return numberUserReseved;
             }
 
-            if (numberParsed < 0 || numberParsed > Shelter.singleUserMaxReservation) {
+            if ((numberParsed < 0) || (numberParsed > Shelter.singleUserMaxReservation)) {
                 ToastUtils.shortToastCenter(getContext(), "Do not enter a number " +
                         "smaller than 0 or larger than " + Shelter.singleUserMaxReservation).show();
 

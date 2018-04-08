@@ -78,7 +78,7 @@ public class ShelterListFragment extends android.support.v4.app.Fragment impleme
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_shelter_list, container, false);
 
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.shelter_list_recycler_view);
+        mRecyclerView = view.findViewById(R.id.shelter_list_recycler_view);
 
         //Query to be created below. It seems it needs to be all one line
         Query query;
@@ -93,8 +93,7 @@ public class ShelterListFragment extends android.support.v4.app.Fragment impleme
                         @NonNull
                         @Override
                         public Shelter parseSnapshot(@NonNull DataSnapshot snapshot) {
-                            Shelter shelter = new Shelter(snapshot);
-                            return shelter;
+                            return new Shelter(snapshot);
                         }
                     })
                     .build();

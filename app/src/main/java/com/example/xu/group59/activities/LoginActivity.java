@@ -2,6 +2,7 @@ package com.example.xu.group59.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -20,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -31,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     Button loginButton;
     EditText emailEditText, passwordEditText;
 
-    ArrayList<HomelessPerson> homelessPeople = new ArrayList<>();
+    List<HomelessPerson> homelessPeople = new ArrayList<>();
 
     //Keeps track of if there is currently a login request
     private Boolean waitingForLoginResponse = false;
@@ -131,7 +133,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void loginSuccessToast(HomelessPerson loggedInHomelessPerson) {
+    private void loginSuccessToast(Parcelable loggedInHomelessPerson) {
 
         ToastUtils.shortToastCenter(this, "Login Successful").show();
 

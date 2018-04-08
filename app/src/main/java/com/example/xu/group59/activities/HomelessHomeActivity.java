@@ -35,6 +35,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.IdentityHashMap;
 import java.util.List;
 
@@ -301,7 +302,7 @@ public class HomelessHomeActivity extends AppCompatActivity implements
         });
     }
 
-    private void showGenderFilteredShelterList(List<Shelter> shelterList, Shelter.Gender gender) {
+    private void showGenderFilteredShelterList(Collection<Shelter> shelterList, Shelter.Gender gender) {
         if (shelterList == null || gender == null) {
             return;
         }
@@ -360,7 +361,7 @@ public class HomelessHomeActivity extends AppCompatActivity implements
         });
     }
 
-    private void showRestrictionsFilteredShelterList(List<Shelter> shelterList, Shelter.Restrictions restriction) {
+    private void showRestrictionsFilteredShelterList(Collection<Shelter> shelterList, Shelter.Restrictions restriction) {
         if (shelterList == null || restriction == null) {
             return;
         }

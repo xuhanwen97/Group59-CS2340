@@ -11,6 +11,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class FirebaseUtils {
         shelterReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                List<Shelter> shelterList = new ArrayList<>(10);
+                Collection<Shelter> shelterList = new ArrayList<>(10);
                 for (DataSnapshot shelterSnapshot : dataSnapshot.getChildren()) {
                     Shelter tempShelter = new Shelter(shelterSnapshot);
                     shelterList.add(tempShelter);

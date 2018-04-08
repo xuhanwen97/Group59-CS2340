@@ -23,6 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -134,7 +135,7 @@ public class RegisterActivity extends AppCompatActivity {
         DatabaseReference createHomelessReference =
                 FirebaseDatabase.getInstance().getReference(HomelessPerson.homelessPersonKey + "/" + email);
 
-        HashMap newHomelessData = new HashMap();
+        Map newHomelessData = new HashMap();
         newHomelessData.put(HomelessPerson.currentShelterKey, "");
         newHomelessData.put(HomelessPerson.nameKey, name);
         newHomelessData.put(HomelessPerson.passwordKey, password);

@@ -6,8 +6,10 @@ import android.os.Parcelable;
 import com.google.firebase.database.DataSnapshot;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by xu on 2/27/18
@@ -91,7 +93,7 @@ public class Shelter implements Parcelable {
         }
     }
 
-    private void parseRestrictions(HashMap restrictionData) {
+    private void parseRestrictions(Map restrictionData) {
         if (restrictionData != null) {
             for (Object statusString : restrictionData.keySet()) {
                 for (Restrictions r : Restrictions.values()) {
@@ -173,7 +175,7 @@ public class Shelter implements Parcelable {
         this.phoneNumber = phoneNumber;
     }
 
-    public List<Restrictions> getRestrictions() {
+    public Collection<Restrictions> getRestrictions() {
         return restrictions;
     }
 

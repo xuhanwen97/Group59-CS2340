@@ -9,6 +9,7 @@ import com.google.firebase.database.DataSnapshot;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class HomelessPerson implements Parcelable {
     //region [ Declarations ] ================================= //
@@ -37,7 +38,7 @@ public class HomelessPerson implements Parcelable {
 
     //endregion
 
-    public static HashMap<String, Boolean> defaultHomelessStatus() {
+    public static Map<String, Boolean> defaultHomelessStatus() {
         HashMap<String, Boolean> homelessStatuses = new HashMap<>();
 
         homelessStatuses.put("Active", true);
@@ -45,7 +46,7 @@ public class HomelessPerson implements Parcelable {
         return homelessStatuses;
     }
 
-    public static HashMap<String, Boolean> defaultAdminStatus() {
+    public static Map<String, Boolean> defaultAdminStatus() {
         HashMap<String, Boolean> adminStatuses = new HashMap<>();
 
         adminStatuses.put("Active", true);
@@ -95,7 +96,7 @@ public class HomelessPerson implements Parcelable {
             name = (String) homelessData.get(nameKey);
             currentShelter = (String) homelessData.get(currentShelterKey);
 
-            HashMap statusData = (HashMap) homelessData.get(statusKey);
+            Map statusData = (HashMap) homelessData.get(statusKey);
             homelessStatus = new ArrayList<>(10);
             if (statusData != null) {
                 for (Object statusString : statusData.keySet()) {

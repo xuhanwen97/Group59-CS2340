@@ -21,19 +21,21 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
 
     //Static Variables
-    public final static String LOGGED_IN_USER_DATA = "registered_user_data";
+    public static final String LOGGED_IN_USER_DATA = "registered_user_data";
     static final int RESULT_LOGIN_SUCCESS = 100;
 
     //Instance Variables
-    Button loginButton;
-    EditText emailEditText, passwordEditText;
+    private Button loginButton;
+    private EditText emailEditText;
+    private EditText passwordEditText;
 
-    List<HomelessPerson> homelessPeople = new ArrayList<>();
+    private final Collection<HomelessPerson> homelessPeople = new ArrayList<>();
 
     //Keeps track of if there is currently a login request
     private Boolean waitingForLoginResponse = false;
@@ -48,9 +50,9 @@ public class LoginActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Grabs each view from the layout
-        loginButton = (Button) findViewById(R.id.login_button);
-        emailEditText = (EditText) findViewById(R.id.email_edit_text);
-        passwordEditText = (EditText) findViewById(R.id.password_edit_text);
+        loginButton = findViewById(R.id.login_button);
+        emailEditText = findViewById(R.id.email_edit_text);
+        passwordEditText = findViewById(R.id.password_edit_text);
 
         //sets an onclick listener for the login button
         loginButton.setOnClickListener(new View.OnClickListener() {

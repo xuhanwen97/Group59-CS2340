@@ -12,7 +12,7 @@ import com.example.xu.group59.models.Shelter;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 
-public class ShelterListFirebaseRecyclerViewAdapter extends FirebaseRecyclerAdapter<Shelter, ShelterListFirebaseRecyclerViewAdapter.ShelterListViewHolder> {
+public final class ShelterListFirebaseRecyclerViewAdapter extends FirebaseRecyclerAdapter<Shelter, ShelterListFirebaseRecyclerViewAdapter.ShelterListViewHolder> {
 
     private ShelterListRecyclerViewAdapter.ShelterListRecyclerViewListener mListener;
 

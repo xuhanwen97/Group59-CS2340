@@ -79,11 +79,6 @@ public class ShelterInformationFragment extends android.support.v4.app.Fragment 
         return view;
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
-
     private void getShelterVacancies() {
         DatabaseReference shelterOccupancyRef = FirebaseDatabase.getInstance()
                 .getReference(Shelter.shelterOccupancyKey)

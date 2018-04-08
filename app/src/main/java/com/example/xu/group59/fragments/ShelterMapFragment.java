@@ -59,11 +59,6 @@ public class ShelterMapFragment extends android.support.v4.app.Fragment implemen
         return mView;
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
     //The methods called below are all part of the MapView's lifecycle!
     @Override
     public void onPause() {

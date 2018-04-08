@@ -20,7 +20,7 @@ import com.example.xu.group59.models.Shelter;
  */
 public class ShelterListGenderFilterFragment extends android.support.v4.app.Fragment implements GenderFilterAdapter.GenderFilterListener{
 
-    Shelter.Gender[] genders;
+    private Shelter.Gender[] genders;
     private RecyclerView mRecyclerView;
     public static final String TAG = "shelter_list_gender_filter_dialog_fragment";
     private ShelterListGenderFilterFragmentListener mListener;

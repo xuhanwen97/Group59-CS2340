@@ -9,7 +9,7 @@ import android.widget.Toast;
  */
 
 public class ToastUtils {
-    public static Toast shortToastCenter(Context context, String text) {
+    public static Toast shortToastCenter(Context context, CharSequence text) {
         Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER, 0, 0);
 

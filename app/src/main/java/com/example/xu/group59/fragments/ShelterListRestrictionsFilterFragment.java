@@ -20,7 +20,7 @@ import com.example.xu.group59.models.Shelter;
  */
 public class ShelterListRestrictionsFilterFragment extends android.support.v4.app.Fragment implements RestrictionsFilterAdapter.RestrictionsFilterListener{
 
-    Shelter.Restrictions[] restrictions;
+    private Shelter.Restrictions[] restrictions;
     private RecyclerView mRecyclerView;
     public static final String TAG = "shelter_list_Restrictions_filter_dialog_fragment";
     private ShelterListRestrictionsFilterFragmentListener mListener;

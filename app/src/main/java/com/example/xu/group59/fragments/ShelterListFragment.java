@@ -54,7 +54,7 @@ public class ShelterListFragment extends android.support.v4.app.Fragment impleme
         return fragment;
     }
 
-    public static ShelterListFragment newInstanceWithQuery(ShelterListFragmentListener listener, Query query) {
+    private static ShelterListFragment newInstanceWithQuery(ShelterListFragmentListener listener, Query query) {
 
         Bundle args = new Bundle();
 

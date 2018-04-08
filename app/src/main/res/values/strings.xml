@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Group59</string>
 
     <!-- Strings related to login -->
@@ -8,12 +8,12 @@
     <string name="checkbox_admin">Admin</string>
     <string name="action_login">Login</string>
     <string name="action_register">Register</string>
-    <string name="action_logout">Logout</string>
-    <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
+    <string name="action_logout" tools:keep="@string/action_logout">Logout</string>
+    <string name="error_invalid_email" tools:keep="@string/error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password" tools:keep="@string/error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password" tools:keep="@string/error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required" tools:keep="@string/error_field_required">This field is required</string>
+    <string name="permission_rationale" tools:keep="@string/permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
     <string name="title_activity_login">LoginActivity</string>
@@ -37,5 +37,5 @@
     <string name="title_restrictions_filter">Restrictions Filter</string>
     <string name="reserved_spots_label">Reserved Spots (10 max):</string>
     <string name="reserve_spots_button">Reserve Spots</string>
-    <string name="title_activity_shelter_list_map">Shelter List Map</string>
+    <string name="title_activity_shelter_list_map" tools:keep="@string/title_activity_shelter_list_map">Shelter List Map</string>
 </resources>

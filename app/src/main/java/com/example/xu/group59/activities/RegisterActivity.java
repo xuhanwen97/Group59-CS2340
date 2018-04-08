@@ -28,13 +28,15 @@ import java.util.Map;
 public class RegisterActivity extends AppCompatActivity {
 
     //Static Variables
-    public final static String REGISTERED_USER_DATA = "registered_user_data";
+    public static final String REGISTERED_USER_DATA = "registered_user_data";
     static final int RESULT_REGISTER_SUCCESS = 100;
 
     //Instance Variables
-    Button registerButton;
-    CheckBox adminCheckbox;
-    EditText emailEditText, passwordEditText, nameEditText;
+    private Button registerButton;
+    private CheckBox adminCheckbox;
+    private EditText emailEditText;
+    private EditText passwordEditText;
+    private EditText nameEditText;
 
     //Keeps track of if there is currently a login request
     private Boolean waitingForLoginResponse = false;
@@ -49,11 +51,11 @@ public class RegisterActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Grabs each view from the layout
-        registerButton = (Button) findViewById(R.id.register_button);
-        nameEditText = (EditText) findViewById(R.id.name_edit_text);
-        emailEditText = (EditText) findViewById(R.id.email_edit_text);
-        passwordEditText = (EditText) findViewById(R.id.password_edit_text);
-        adminCheckbox = (CheckBox) findViewById(R.id.admin_check_box);
+        registerButton = findViewById(R.id.register_button);
+        nameEditText = findViewById(R.id.name_edit_text);
+        emailEditText = findViewById(R.id.email_edit_text);
+        passwordEditText = findViewById(R.id.password_edit_text);
+        adminCheckbox = findViewById(R.id.admin_check_box);
 
         //sets an onclick listener for the register button
         registerButton.setOnClickListener(new View.OnClickListener() {

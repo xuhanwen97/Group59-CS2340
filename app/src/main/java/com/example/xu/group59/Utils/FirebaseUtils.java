@@ -19,7 +19,7 @@ import java.util.List;
  * Created by xu on 2/27/18
  */
 
-public class FirebaseUtils {
+class FirebaseUtils {
     private static final String TAG = "firebase_utils";
 
     private static final FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();

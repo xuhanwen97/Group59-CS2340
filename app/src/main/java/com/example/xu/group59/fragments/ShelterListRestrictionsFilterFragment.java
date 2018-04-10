@@ -94,6 +94,10 @@ public class ShelterListRestrictionsFilterFragment extends android.support.v4.ap
      * let the listener know when a restrictions filter in the list has been clicked on.
      */
     public interface ShelterListRestrictionsFilterFragmentListener {
+        /**
+         * Checks if the restrictions filter has been clicked.
+         * @param restriction the restriction that is being checked
+         */
         void onRestrictionsFilterClicked(Shelter.Restrictions restriction);
     }
 }

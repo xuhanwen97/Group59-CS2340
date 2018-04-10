@@ -166,6 +166,10 @@ public class ShelterListFragment extends android.support.v4.app.Fragment impleme
      * know when a shelter in the list has been clicked on.
      */
     public interface ShelterListFragmentListener {
+        /**
+         * Checks if the shelter has been clicked
+         * @param shelter the shelter that is being checked
+         */
         void onShelterClicked(Shelter shelter);
     }
 }

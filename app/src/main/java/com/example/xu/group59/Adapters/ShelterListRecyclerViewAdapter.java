@@ -102,6 +102,10 @@ public class ShelterListRecyclerViewAdapter extends RecyclerView.Adapter<Shelter
      * on.
      */
     public interface ShelterListRecyclerViewListener {
+        /**
+         * Checks if the shelter has been clicked on.
+         * @param shelter the shelter being checked
+         */
         void onShelterClicked(Shelter shelter);
     }
 }

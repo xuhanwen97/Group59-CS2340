@@ -98,6 +98,10 @@ public class ShelterListGenderFilterFragment extends android.support.v4.app.Frag
      * the listener know when a gender filter in the list has been clicked on.
      */
     public interface ShelterListGenderFilterFragmentListener {
+        /**
+         * Checks if the gender filter has been clicked.
+         * @param gender the gender being checked
+         */
         void onGenderFilterClicked(Shelter.Gender gender);
     }
 }

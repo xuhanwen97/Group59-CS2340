@@ -12,6 +12,9 @@ import com.example.xu.group59.R;
 import com.example.xu.group59.models.HomelessPerson;
 import com.google.firebase.database.FirebaseDatabase;
 
+/**
+ * Activity that allows a user to chose to register with the app or login to the app.
+ */
 public class WelcomeActivity extends AppCompatActivity {
 
     //Static Variables

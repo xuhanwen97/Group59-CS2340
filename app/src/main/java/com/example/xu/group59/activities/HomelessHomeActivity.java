@@ -39,6 +39,11 @@ import java.util.Collection;
 // import java.util.IdentityHashMap;
 import java.util.List;
 
+/**
+ * Activity that sets up the home screen that the homeless person will see when logged into the
+ * app.  Upon start up, it will show all the shelters in the area.  Once in the app, the user
+ * will be able filter based on gender and other restrictions such as family status.
+ */
 public class HomelessHomeActivity extends AppCompatActivity implements
         ShelterListFragment.ShelterListFragmentListener,
         SearchView.OnQueryTextListener,

@@ -109,7 +109,7 @@ public class Shelter implements Parcelable {
      * @return a string detailing the restrictions or no restrictions
      */
     public String getRestrictionsString() {
-        if (restrictions == null || restrictions.size() == 0) {
+        if (restrictions == null || restrictions.isEmpty()) {
             return "No Restrictions";
         }
 

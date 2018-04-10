@@ -22,6 +22,11 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Activity to register a new user to the system.  Includes methods to check if the user already
+ * exists.  If the user does not exist, then they will be added to the database so they can
+ * login in the future.
+ */
 public class RegisterActivity extends AppCompatActivity {
 
     //Static Variables

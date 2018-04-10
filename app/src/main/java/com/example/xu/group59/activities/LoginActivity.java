@@ -23,6 +23,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Collection;
 
+/**
+ * Activity that set up the login screen that any user will see when opening the application.  This
+ * will also authenticate the user and add their information to the database
+ */
 public class LoginActivity extends AppCompatActivity {
 
     //Static Variables
@@ -157,10 +161,7 @@ public class LoginActivity extends AppCompatActivity {
 //        }
 //    }
 
-    /**
-     * 
-     */
-    public void getUserList() {
+   /*public void getUserList() {
         DatabaseReference userReference =
                 FirebaseDatabase.getInstance().getReference(HomelessPerson.homelessPersonKey);
 
@@ -181,7 +182,7 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
-    }
+    }*/
 
     //endregion
 

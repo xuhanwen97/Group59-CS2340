@@ -79,6 +79,12 @@ public class RestrictionsFilterAdapter extends RecyclerView.Adapter<Restrictions
             });
         }
 
+        /**
+         * Set the text to be displayed in the list based on the restriction passed in
+         *
+         * @param restriction the restrictions the current user is filtering for to be shown in the
+         *                    list view
+         */
         public void bindData(Shelter.Restrictions restriction) {
             if (restriction != null && restriction.getName() != null) {
                 this.restriction = restriction;

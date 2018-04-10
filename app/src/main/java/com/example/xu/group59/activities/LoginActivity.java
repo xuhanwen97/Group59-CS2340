@@ -158,6 +158,9 @@ public class LoginActivity extends AppCompatActivity {
 //        }
 //    }
 
+    /**
+     * 
+     */
     public void getUserList() {
         DatabaseReference userReference =
                 FirebaseDatabase.getInstance().getReference(HomelessPerson.homelessPersonKey);

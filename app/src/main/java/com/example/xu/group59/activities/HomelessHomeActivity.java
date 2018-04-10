@@ -393,10 +393,18 @@ public class HomelessHomeActivity extends AppCompatActivity implements
         return null;
     }
 
+    /**
+     * Getter method for the currently logged in user
+     * @return return the current HomelessPerson that is logged in
+     * */
     public HomelessPerson getLoggedInUser() {
         return loggedInUser;
     }
 
+    /**
+     * Setter method for the current logged in user
+     * @param loggedInUser current logged in user
+     * */
     public void setLoggedInUser(HomelessPerson loggedInUser) {
         this.loggedInUser = loggedInUser;
     }

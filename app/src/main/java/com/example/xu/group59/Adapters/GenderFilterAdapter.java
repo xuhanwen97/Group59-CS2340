@@ -45,6 +45,7 @@ public class GenderFilterAdapter extends RecyclerView.Adapter<GenderFilterAdapte
 
     @NonNull
     @Override
+
     public GenderFilterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         final View view = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
         return new GenderFilterViewHolder(view);
@@ -82,6 +83,12 @@ public class GenderFilterAdapter extends RecyclerView.Adapter<GenderFilterAdapte
             });
         }
 
+        /**
+         * Sets the text to be in the list if the shelter accepts people of the that gender
+         *
+         * @param gender the gender of the current user that is to be used to filter the list of
+         *               shelters
+         */
         public void bindData(Shelter.Gender gender) {
             if ((gender != null) && (gender.getName() != null)) {
                 this.gender = gender;
@@ -92,6 +99,7 @@ public class GenderFilterAdapter extends RecyclerView.Adapter<GenderFilterAdapte
         }
 
     }
+
 
     public interface GenderFilterListener {
         void onGenderFilterClicked(Shelter.Gender gender);

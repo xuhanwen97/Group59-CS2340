@@ -20,7 +20,7 @@ public final class ShelterListFirebaseRecyclerViewAdapter extends FirebaseRecycl
      * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
      * {@link FirebaseRecyclerOptions} for configuration options.
      *
-     * @param options The options
+     * @param options possible configuration options for the RecycleView.Adapter
      */
     private ShelterListFirebaseRecyclerViewAdapter(@NonNull FirebaseRecyclerOptions<Shelter> options) {
         super(options);
@@ -67,6 +67,10 @@ public final class ShelterListFirebaseRecyclerViewAdapter extends FirebaseRecycl
 
         }
 
+        /**
+         * Set the text to be displayed in the list of the specific shelter that is being search for
+         * @param shelter shelter that you are trying to find
+         */
         public void bindData(Shelter shelter) {
             if (shelter.getShelterName() != null) {
                 data = shelter;

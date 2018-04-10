@@ -64,6 +64,11 @@ public class ShelterListRecyclerViewAdapter extends RecyclerView.Adapter<Shelter
 
         }
 
+        /**
+         *
+         * Set the text to be displayed in the list of the specific shelter that is being search for
+         * @param shelter shelter that is being searched for
+         */
         public void bindData(Shelter shelter) {
             if (shelter.getShelterName() != null) {
                 data = shelter;

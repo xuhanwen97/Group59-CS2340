@@ -20,13 +20,13 @@ public class Shelter implements Parcelable {
     public enum Gender {
         men(Restrictions.men.getName()), women(Restrictions.women.getName());
 
-        String name;
+        final String name;
 
         Gender(String name) {
             this.name = name;
         }
 
-        public String getName() {
+        public CharSequence getName() {
             return name;
         }
     }
@@ -36,7 +36,7 @@ public class Shelter implements Parcelable {
         familiesNewborns("Families With Newborns"), familiesChildrenUnder7("Families With Children Under 7"),
         veterans("Veterans");
 
-        private String name;
+        private final String name;
 
         Restrictions(String name) {
             this.name = name;
@@ -53,14 +53,14 @@ public class Shelter implements Parcelable {
     public static final String shelterOccupancyKey = "shelter_occupancy";
     public static final String shelterOccupancyTotalReservedKey = "total_reserved";
 
-    public static final String addressKey = "address";
-    public static final String capacityKey= "capacity";
-    public static final String latitudeKey = "latitude";
-    public static final String longitudeKey = "longitude";
-    public static final String phoneNumberKey = "phone_number";
-    public static final String restrictionsKey = "restrictions";
+    private static final String addressKey = "address";
+    private static final String capacityKey= "capacity";
+    private static final String latitudeKey = "latitude";
+    private static final String longitudeKey = "longitude";
+    private static final String phoneNumberKey = "phone_number";
+    private static final String restrictionsKey = "restrictions";
     public static final String shelterNameKey = "name";
-    public static final String specialNotesKey = "special_notes";
+    private static final String specialNotesKey = "special_notes";
     public static final String shelterKeyKey = "Unique Key";
 
     private String address;
@@ -78,7 +78,7 @@ public class Shelter implements Parcelable {
         this.shelterKey = dataSnapshot.getKey();
     }
 
-    public Shelter(HashMap<String, Object> shelterData) {
+    private Shelter(HashMap<String, Object> shelterData) {
         if (shelterData != null) {
             address = (String) shelterData.get(addressKey);
             capacity = ((Long)shelterData.get(capacityKey)).intValue();
@@ -105,15 +105,15 @@ public class Shelter implements Parcelable {
         }
     }
 
-    public String getRestrictionsString() {
-        if (restrictions == null || restrictions.size() == 0) {
+    public CharSequence getRestrictionsString() {
+        if ((restrictions == null) || (restrictions.isEmpty())) {
             return "No Restrictions";
         }
 
-        String restrictionsString = "";
+        StringBuilder restrictionsString = new StringBuilder();
 
         for (Restrictions r: restrictions) {
-            restrictionsString = restrictionsString + r.getName() + ", ";
+            restrictionsString.append(r.getName()).append(", ");
         }
 
         return restrictionsString.substring(0, restrictionsString.length() - 3);
@@ -135,7 +135,7 @@ public class Shelter implements Parcelable {
         return 0;
     }
 
-    public String getAddress() {
+    public CharSequence getAddress() {
         return address;
     }
 
@@ -191,7 +191,7 @@ public class Shelter implements Parcelable {
         this.shelterName = shelterName;
     }
 
-    public String getSpecialNotes() {
+    public CharSequence getSpecialNotes() {
         return specialNotes;
     }
 
@@ -226,7 +226,7 @@ public class Shelter implements Parcelable {
         dest.writeString(this.shelterKey);
     }
 
-    protected Shelter(Parcel in) {
+    private Shelter(Parcel in) {
         this.address = in.readString();
         this.capacity = in.readInt();
         this.latitude = in.readDouble();

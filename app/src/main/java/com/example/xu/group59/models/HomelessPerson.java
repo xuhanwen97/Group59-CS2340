@@ -14,7 +14,7 @@ import java.util.Map;
 public class HomelessPerson implements Parcelable {
     //region [ Declarations ] ================================= //
 
-    public static String homelessPersonKey = "homeless_person";
+    public static final String homelessPersonKey = "homeless_person";
 
     public static final String nameKey = "name";
     public static final String passwordKey = "password";
@@ -29,11 +29,11 @@ public class HomelessPerson implements Parcelable {
     }
 
     //Homeless person's login name is the key in the database
-    String login;
-    String password;
-    String name;
-    List<UserStatus> homelessStatus;
-    String currentShelter;
+    private String login;
+    private String password;
+    private String name;
+    private List<UserStatus> homelessStatus;
+    private String currentShelter;
 
 
     //endregion
@@ -91,7 +91,7 @@ public class HomelessPerson implements Parcelable {
     public HomelessPerson(DataSnapshot homelessSnapshot) {
         HashMap homelessData = (HashMap) homelessSnapshot.getValue();
         String homelessKey = homelessSnapshot.getKey();
-        if (homelessKey != null && homelessData != null) {
+        if ((homelessKey != null) && (homelessData != null)) {
             login = homelessKey;
             password = (String) homelessData.get(passwordKey);
             name = (String) homelessData.get(nameKey);
@@ -125,8 +125,12 @@ public class HomelessPerson implements Parcelable {
     //Checks login and name
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if ((o == null) || (getClass() != o.getClass())) {
+            return false;
+        }
 
         HomelessPerson homelessPerson = (HomelessPerson) o;
 
@@ -191,7 +195,7 @@ public class HomelessPerson implements Parcelable {
         dest.writeString(this.currentShelter);
     }
 
-    protected HomelessPerson(Parcel in) {
+    private HomelessPerson(Parcel in) {
         this.login = in.readString();
         this.password = in.readString();
         this.name = in.readString();

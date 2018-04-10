@@ -3,14 +3,14 @@ package com.example.xu.group59.activities;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
+// import android.graphics.PorterDuff;
+// import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
+// import android.text.Html;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -36,7 +36,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.IdentityHashMap;
+// import java.util.IdentityHashMap;
 import java.util.List;
 
 public class HomelessHomeActivity extends AppCompatActivity implements
@@ -45,7 +45,7 @@ public class HomelessHomeActivity extends AppCompatActivity implements
         ShelterListGenderFilterFragment.ShelterListGenderFilterFragmentListener,
         ShelterListRestrictionsFilterFragment.ShelterListRestrictionsFilterFragmentListener{
 
-    public static final String TAG = "homeless_home_activity";
+    private static final String TAG = "homeless_home_activity";
     public static final String LOGGED_IN_USER_TAG = "logged_in_user";
     private SearchView mSearchView;
 
@@ -159,14 +159,14 @@ public class HomelessHomeActivity extends AppCompatActivity implements
         Fragment shelterListFragment = getSupportFragmentManager().findFragmentByTag(ShelterListFragment.TAG);
 
         // isIconified is false when it's shown fully
-        if (mSearchView != null && !mSearchView.isIconified()) {
+        if ((mSearchView != null) && !mSearchView.isIconified()) {
             mSearchView.setIconified(true);
             mSearchView.onActionViewCollapsed();
             setupShowShelterList(null);
             return true;
         }
 
-        if (shelterListFragment != null && shelterListFragment.isVisible()) {
+        if ((shelterListFragment != null) && shelterListFragment.isVisible()) {
             ToastUtils.shortToastCenter(this, "Logout successful").show();
             finish();
         } else {
@@ -287,7 +287,7 @@ public class HomelessHomeActivity extends AppCompatActivity implements
         shelterListRef.orderByChild(Shelter.shelterNameKey).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                List<Shelter> shelterList = new ArrayList<>(10);
+                Collection<Shelter> shelterList = new ArrayList<>(10);
                 for (DataSnapshot shelterSnapshot : dataSnapshot.getChildren()) {
                     Shelter tempShelter = new Shelter(shelterSnapshot);
                     shelterList.add(tempShelter);
@@ -303,7 +303,7 @@ public class HomelessHomeActivity extends AppCompatActivity implements
     }
 
     private void showGenderFilteredShelterList(Collection<Shelter> shelterList, Shelter.Gender gender) {
-        if (shelterList == null || gender == null) {
+        if ((shelterList == null) || (gender == null)) {
             return;
         }
 
@@ -346,7 +346,7 @@ public class HomelessHomeActivity extends AppCompatActivity implements
         shelterListRef.orderByChild(Shelter.shelterNameKey).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                List<Shelter> shelterList = new ArrayList<>(10);
+                Collection<Shelter> shelterList = new ArrayList<>(10);
                 for (DataSnapshot shelterSnapshot : dataSnapshot.getChildren()) {
                     Shelter tempShelter = new Shelter(shelterSnapshot);
                     shelterList.add(tempShelter);
@@ -362,7 +362,7 @@ public class HomelessHomeActivity extends AppCompatActivity implements
     }
 
     private void showRestrictionsFilteredShelterList(Collection<Shelter> shelterList, Shelter.Restrictions restriction) {
-        if (shelterList == null || restriction == null) {
+        if ((shelterList == null) || (restriction == null)) {
             return;
         }
 

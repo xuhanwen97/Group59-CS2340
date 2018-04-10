@@ -52,16 +52,11 @@ public class ShelterMapFragment extends android.support.v4.app.Fragment implemen
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_shelter_map, container, false);
         MapsInitializer.initialize(this.getActivity());
-        mMapView = (MapView) mView.findViewById(R.id.shelter_map_view);
+        mMapView = mView.findViewById(R.id.shelter_map_view);
         mMapView.onCreate(savedInstanceState);
         mMapView.getMapAsync(this);
 
         return mView;
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
     }
 
     //The methods called below are all part of the MapView's lifecycle!
@@ -101,7 +96,7 @@ public class ShelterMapFragment extends android.support.v4.app.Fragment implemen
         //Makes the zoom buttons appear
         mMap.getUiSettings().setZoomControlsEnabled(true);
 
-        if (shelterList != null && !shelterList.isEmpty()) {
+        if ((shelterList != null) && !shelterList.isEmpty()) {
             //Adds a marker at each shelter location
             for (Shelter s : shelterList) {
                 LatLng loc = new LatLng(s.getLatitude(), s.getLongitude());

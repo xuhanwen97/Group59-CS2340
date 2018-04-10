@@ -12,7 +12,7 @@ import com.example.xu.group59.models.Shelter;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 
-public class ShelterListFirebaseRecyclerViewAdapter extends FirebaseRecyclerAdapter<Shelter, ShelterListFirebaseRecyclerViewAdapter.ShelterListViewHolder> {
+public final class ShelterListFirebaseRecyclerViewAdapter extends FirebaseRecyclerAdapter<Shelter, ShelterListFirebaseRecyclerViewAdapter.ShelterListViewHolder> {
 
     private ShelterListRecyclerViewAdapter.ShelterListRecyclerViewListener mListener;
 
@@ -20,9 +20,9 @@ public class ShelterListFirebaseRecyclerViewAdapter extends FirebaseRecyclerAdap
      * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
      * {@link FirebaseRecyclerOptions} for configuration options.
      *
-     * @param options
+     * @param options The options
      */
-    public ShelterListFirebaseRecyclerViewAdapter(@NonNull FirebaseRecyclerOptions<Shelter> options) {
+    private ShelterListFirebaseRecyclerViewAdapter(@NonNull FirebaseRecyclerOptions<Shelter> options) {
         super(options);
     }
 
@@ -51,12 +51,12 @@ public class ShelterListFirebaseRecyclerViewAdapter extends FirebaseRecyclerAdap
 
     public class ShelterListViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView shelterNameTextView;
+        private final TextView shelterNameTextView;
         private Shelter data;
 
         public ShelterListViewHolder(View itemView) {
             super(itemView);
-            shelterNameTextView = (TextView) itemView.findViewById(R.id.shelter_name_text_view);
+            shelterNameTextView = itemView.findViewById(R.id.shelter_name_text_view);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

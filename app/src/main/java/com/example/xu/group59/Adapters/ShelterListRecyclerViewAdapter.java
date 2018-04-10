@@ -48,12 +48,12 @@ public class ShelterListRecyclerViewAdapter extends RecyclerView.Adapter<Shelter
 
     public class ShelterListViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView shelterNameTextView;
+        private final TextView shelterNameTextView;
         private Shelter data;
 
         public ShelterListViewHolder(View itemView) {
             super(itemView);
-            shelterNameTextView = (TextView) itemView.findViewById(R.id.shelter_name_text_view);
+            shelterNameTextView = itemView.findViewById(R.id.shelter_name_text_view);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -20,7 +20,7 @@ import com.example.xu.group59.models.Shelter;
  */
 public class ShelterListGenderFilterFragment extends android.support.v4.app.Fragment implements GenderFilterAdapter.GenderFilterListener{
 
-    Shelter.Gender[] genders;
+    private Shelter.Gender[] genders;
     private RecyclerView mRecyclerView;
     public static final String TAG = "shelter_list_gender_filter_dialog_fragment";
     private ShelterListGenderFilterFragmentListener mListener;
@@ -52,7 +52,7 @@ public class ShelterListGenderFilterFragment extends android.support.v4.app.Frag
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_shelter_list_filter, container, false);
 
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.filter_list_recycler_view);
+        mRecyclerView = view.findViewById(R.id.filter_list_recycler_view);
 
         TextView filterTypeTextView = view.findViewById(R.id.filter_type_name_text_view);
         filterTypeTextView.setText(getString(R.string.title_gender_filter) + ": Click to clear filter");

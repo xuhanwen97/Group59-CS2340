@@ -1,6 +1,7 @@
 package com.example.xu.group59.activities;
 
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -17,12 +18,13 @@ import java.util.ArrayList;
 public class WelcomeActivity extends AppCompatActivity {
 
     //Static Variables
-    static final int ACTIVITY_REGISTER = 0;
-    static final int ACTIVITY_LOGIN = 1;
+    private static final int ACTIVITY_REGISTER = 0;
+    private static final int ACTIVITY_LOGIN = 1;
 
     HomelessPerson defaultHomelessPerson = new HomelessPerson("user", "pass", "default_user");
 
-    Button loginButton, registerButton;
+    private Button loginButton;
+    private Button registerButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +35,8 @@ public class WelcomeActivity extends AppCompatActivity {
         setSupportActionBar((Toolbar) findViewById(R.id.app_toolbar));
 
         //Grabs each view from the layout
-        loginButton = (Button) findViewById(R.id.welcome_login_button);
-        registerButton = (Button) findViewById(R.id.welcome_register_button);
+        loginButton = findViewById(R.id.welcome_login_button);
+        registerButton = findViewById(R.id.welcome_register_button);
 
         //sets an onclick listener for the login button
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -73,7 +75,7 @@ public class WelcomeActivity extends AppCompatActivity {
         startActivityForResult(intent, ACTIVITY_REGISTER);
     }
 
-    private void launchTempApplication(HomelessPerson loggedInUser) {
+    private void launchTempApplication(Parcelable loggedInUser) {
         Intent intent = new Intent(this, HomelessHomeActivity.class);
         intent.putExtra(HomelessHomeActivity.LOGGED_IN_USER_TAG, loggedInUser);
         startActivity(intent);

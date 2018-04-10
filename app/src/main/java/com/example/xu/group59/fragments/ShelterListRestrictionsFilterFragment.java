@@ -20,7 +20,7 @@ import com.example.xu.group59.models.Shelter;
  */
 public class ShelterListRestrictionsFilterFragment extends android.support.v4.app.Fragment implements RestrictionsFilterAdapter.RestrictionsFilterListener{
 
-    Shelter.Restrictions[] restrictions;
+    private Shelter.Restrictions[] restrictions;
     private RecyclerView mRecyclerView;
     public static final String TAG = "shelter_list_Restrictions_filter_dialog_fragment";
     private ShelterListRestrictionsFilterFragmentListener mListener;
@@ -51,7 +51,7 @@ public class ShelterListRestrictionsFilterFragment extends android.support.v4.ap
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_shelter_list_filter, container, false);
 
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.filter_list_recycler_view);
+        mRecyclerView = view.findViewById(R.id.filter_list_recycler_view);
 
         TextView filterTypeTextView = view.findViewById(R.id.filter_type_name_text_view);
         filterTypeTextView.setText(getString(R.string.title_restrictions_filter) + ": Click to clear filter");

@@ -6,7 +6,6 @@ import android.os.Parcelable;
 import com.google.firebase.database.DataSnapshot;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -122,7 +121,7 @@ public class Shelter implements Parcelable {
      * @return a string detailing the restrictions or no restrictions
      */
     public String getRestrictionsString() {
-        if (restrictions == null || restrictions.size() == 0) {
+        if (restrictions == null || restrictions.isEmpty()) {
             return "No Restrictions";
         }
 

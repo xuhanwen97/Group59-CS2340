@@ -1,12 +1,9 @@
 package com.example.xu.group59.fragments;
 
 
-import android.graphics.YuvImage;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 

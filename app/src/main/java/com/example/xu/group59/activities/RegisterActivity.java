@@ -1,6 +1,5 @@
 package com.example.xu.group59.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -13,7 +12,6 @@ import android.widget.EditText;
 import com.example.xu.group59.R;
 import com.example.xu.group59.Utils.StringUtils;
 import com.example.xu.group59.Utils.ToastUtils;
-import com.example.xu.group59.models.Admin;
 import com.example.xu.group59.models.HomelessPerson;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -21,10 +19,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Activity to register a new user to the system.  Includes methods to check if the user already
+ * exists.  If the user does not exist, then they will be added to the database so they can
+ * login in the future.
+ */
 public class RegisterActivity extends AppCompatActivity {
 
     //Static Variables
@@ -137,7 +139,7 @@ public class RegisterActivity extends AppCompatActivity {
         DatabaseReference createHomelessReference =
                 FirebaseDatabase.getInstance().getReference(HomelessPerson.homelessPersonKey + "/" + email);
 
-        Map newHomelessData = new HashMap();
+        Map<String, Object> newHomelessData = new HashMap<>();
         newHomelessData.put(HomelessPerson.currentShelterKey, "");
         newHomelessData.put(HomelessPerson.nameKey, name);
         newHomelessData.put(HomelessPerson.passwordKey, password);

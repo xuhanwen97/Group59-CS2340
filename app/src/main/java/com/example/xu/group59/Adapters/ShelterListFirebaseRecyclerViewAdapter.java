@@ -12,6 +12,9 @@ import com.example.xu.group59.models.Shelter;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 
+/**
+ * A class that is the shelter list fragment that uses firebase into an adapter
+ */
 public final class ShelterListFirebaseRecyclerViewAdapter extends FirebaseRecyclerAdapter<Shelter, ShelterListFirebaseRecyclerViewAdapter.ShelterListViewHolder> {
 
     private ShelterListRecyclerViewAdapter.ShelterListRecyclerViewListener mListener;
@@ -26,6 +29,12 @@ public final class ShelterListFirebaseRecyclerViewAdapter extends FirebaseRecycl
         super(options);
     }
 
+    /**
+     * A method that makes a new Instance of the shelter list firebase recycler view adapter
+     * @param listener a listener of the shelter list recycler view adapter
+     * @param options a firebase recycler options<>  options
+     * @return a shetler list recycler view adapter
+     */
     public static ShelterListFirebaseRecyclerViewAdapter newInstance(ShelterListRecyclerViewAdapter.ShelterListRecyclerViewListener listener, FirebaseRecyclerOptions<Shelter> options) {
         ShelterListFirebaseRecyclerViewAdapter adapter = new ShelterListFirebaseRecyclerViewAdapter(options);
         adapter.mListener = listener;
@@ -54,6 +63,10 @@ public final class ShelterListFirebaseRecyclerViewAdapter extends FirebaseRecycl
         private final TextView shelterNameTextView;
         private Shelter data;
 
+        /**
+         * a constructor that creates the shelter list view holder
+         * @param itemView a view of the item view
+         */
         public ShelterListViewHolder(View itemView) {
             super(itemView);
             shelterNameTextView = itemView.findViewById(R.id.shelter_name_text_view);

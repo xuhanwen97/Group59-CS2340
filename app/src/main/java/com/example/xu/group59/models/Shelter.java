@@ -105,8 +105,12 @@ public class Shelter implements Parcelable {
         }
     }
 
-    public CharSequence getRestrictionsString() {
-        if ((restrictions == null) || (restrictions.isEmpty())) {
+    /**
+     * Gives the restrictions of the shelter
+     * @return a string detailing the restrictions or no restrictions
+     */
+    public String getRestrictionsString() {
+        if (restrictions == null || restrictions.size() == 0) {
             return "No Restrictions";
         }
 
@@ -119,6 +123,11 @@ public class Shelter implements Parcelable {
         return restrictionsString.substring(0, restrictionsString.length() - 3);
     }
 
+    /**
+     * Converting an object to an integer
+     * @param input any object
+     * @return integer value associated with that object
+     */
     public int parseToInt(Object input) {
         if (input == null) {
             return 0;
@@ -135,74 +144,148 @@ public class Shelter implements Parcelable {
         return 0;
     }
 
-    public CharSequence getAddress() {
+    /**
+     * Retrieves the address
+     * @return a string of the address of the shelter
+     */
+    public String getAddress() {
         return address;
     }
 
+    /**
+     * Sets the address of the shelter
+     * @param address a string of the address of the shelter
+     */
     public void setAddress(String address) {
         this.address = address;
     }
 
+    /**
+     * Retrieves the capacity of the shelter
+     * @return an integer of the capacity of the shelter
+     */
     public int getCapacity() {
         return capacity;
     }
+
+    /**
+     * Sets the capacity of the shelter
+     * @param capacity an integer of the capacity of the shelter
+     */
 
     public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
 
+    /**
+     * Retrieves the latitude of the shelter
+     * @return a double of the latitude of the shelter
+     */
     public double getLatitude() {
         return latitude;
     }
+
+    /**
+     * Sets the latitude of the shelter
+     * @param latitude a double of the lattitude of the shelter
+     */
 
     public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
+    /**
+     * Retrieves the longitude of the shelter
+     * @return  the longitude of the shelter
+     */
     public double getLongitude() {
         return longitude;
     }
 
+    /**
+     * Sets the longitude of the shelter
+     * @param longitude a double of the longitude of the shelter
+     */
     public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
+    /**
+     * Retrieves the phone number of the shelter
+     * @return a string of the phone number of the shelter
+     */
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
+    /**
+     * Sets the phone number of the shelter
+     * @param phoneNumber a string of the phone number of the shelter
+     */
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
-    public Collection<Restrictions> getRestrictions() {
+    /**
+     * Retrieves the restrictions of the shelter
+     * @return a list of the restrictions of the shelter
+     */
+    public List<Restrictions> getRestrictions() {
         return restrictions;
     }
 
+    /**
+     * Sets the restrictions of the shelter
+     * @param restrictions a list of the restriction of the shelter
+     */
     public void setRestrictions(List<Restrictions> restrictions) {
         this.restrictions = restrictions;
     }
 
+    /**
+     * Retrieves the shelter name
+     * @return a string of the shelter name
+     */
     public String getShelterName() {
         return shelterName;
     }
 
+    /**
+     * Sets the shelter name of the shelter
+     * @param shelterName a String of the shelter name
+     */
     public void setShelterName(String shelterName) {
         this.shelterName = shelterName;
     }
 
-    public CharSequence getSpecialNotes() {
+    /**
+     * Retrieves the special notes of the shelter
+     * @return a string of the special notes of the shelter
+     */
+    public String getSpecialNotes() {
         return specialNotes;
     }
 
+    /**
+     * Sets the special notes of the shelter
+     * @param specialNotes a string of the special notes of the shelter
+     */
     public void setSpecialNotes(String specialNotes) {
         this.specialNotes = specialNotes;
     }
 
+    /**
+     * Retrieves the shelter key of the shelter
+     * @return a string the shelter key of the shelter
+     */
     public String getShelterKey() {
         return shelterKey;
     }
 
+    /**
+     * Sets the shelter key of the shelter
+     * @param shelterKey a string of the shelter key of the shelter
+     */
     public void setShelterKey(String shelterKey) {
         this.shelterKey = shelterKey;
     }

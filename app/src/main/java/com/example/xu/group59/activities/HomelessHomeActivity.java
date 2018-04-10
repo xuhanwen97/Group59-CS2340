@@ -63,8 +63,8 @@ public class HomelessHomeActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_homeless_home);
 
         //Grab the signed in user
-        if (getIntent().getExtras().get(LOGGED_IN_USER_TAG) != null) {
-            loggedInUser = (HomelessPerson) getIntent().getExtras().get(LOGGED_IN_USER_TAG);
+        if ((getIntent().getExtras() != null) && (getIntent().getExtras().get(LOGGED_IN_USER_TAG) != null)) {
+                loggedInUser = (HomelessPerson) getIntent().getExtras().get(LOGGED_IN_USER_TAG);
         } else {
             loggedInUser = null;
         }
@@ -159,7 +159,7 @@ public class HomelessHomeActivity extends AppCompatActivity implements
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.homeless_home_fragment_container, shelterInfoFragment)
+                .replace(R.id.homeless_home_fragment_container, shelterInfoFragment, ShelterInformationFragment.TAG)
                 .addToBackStack("temp")
                 .commit();
     }
@@ -187,7 +187,11 @@ public class HomelessHomeActivity extends AppCompatActivity implements
 
     //region [ fragment helpers ] ================================= //
 
-    private void setupShowShelterList(String queryString) {
+    /**
+     * Gets data used for displaying a shelter list
+     * @param queryString The query string used to get the shelter list
+     */
+    public void setupShowShelterList(String queryString) {
         Query query;
 
         if (queryString == null) {
@@ -430,6 +434,14 @@ public class HomelessHomeActivity extends AppCompatActivity implements
                 .replace(R.id.homeless_home_fragment_container, shelterMapFragment, ShelterMapFragment.TAG)
                 .addToBackStack("temp")
                 .commit();
+    }
+
+    /**
+     * Gets the shelter list currently displayed
+     * @return Shelter List displayed
+     */
+    public List<Shelter> getShelterList() {
+        return currentShelterList;
     }
 
 }

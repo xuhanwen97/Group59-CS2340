@@ -43,7 +43,7 @@ public final class ShelterListFirebaseRecyclerViewAdapter extends FirebaseRecycl
     }
 
     @Override
-    public ShelterListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ShelterListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         final View view = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
         return new ShelterListViewHolder(view);
     }

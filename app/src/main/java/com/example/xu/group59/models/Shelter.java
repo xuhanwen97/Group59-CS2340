@@ -85,7 +85,7 @@ public class Shelter implements Parcelable {
      * @param dataSnapshot takes in a packet of the shelters data
      */
     public Shelter(DataSnapshot dataSnapshot) {
-        this((HashMap) dataSnapshot.getValue());
+        this((HashMap<String, Object>) dataSnapshot.getValue());
         this.shelterKey = dataSnapshot.getKey();
     }
 

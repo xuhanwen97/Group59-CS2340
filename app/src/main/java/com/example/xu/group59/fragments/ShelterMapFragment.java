@@ -54,7 +54,7 @@ public class ShelterMapFragment extends android.support.v4.app.Fragment implemen
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_shelter_map, container, false);

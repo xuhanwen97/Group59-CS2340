@@ -1,6 +1,7 @@
 package com.example.xu.group59.fragments;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +33,7 @@ public class ShelterInformationFragment extends android.support.v4.app.Fragment 
 
     private Shelter shelter;
     private HomelessPerson loggedInPerson;
-    private int numberUserReseved;
+    public int numberUserReseved;
     private int numberVacancies = 0;
 
     private TextView shelterNameTextView;
@@ -41,7 +42,7 @@ public class ShelterInformationFragment extends android.support.v4.app.Fragment 
     private TextView capacityTextView;
     private TextView restrictionsTextView;
     private TextView specialNotesTextView;
-    private EditText shelterUserReservedAmountEditText;
+    public EditText shelterUserReservedAmountEditText;
     private Button reserveSpotsButton;
 
     /**
@@ -63,7 +64,7 @@ public class ShelterInformationFragment extends android.support.v4.app.Fragment 
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_shelter_information, container, false);
 
@@ -146,7 +147,11 @@ public class ShelterInformationFragment extends android.support.v4.app.Fragment 
         }
     }
 
-    private int getNumberReserved() {
+    /**
+     * Gets the number of spots reserved by the current user based on what the input is in the edit text
+     * @return the number of spots reserved by the current user
+     */
+    public int getNumberReserved() {
         String textToParse = shelterUserReservedAmountEditText.getText().toString();
 
         if (StringUtils.isNullOrEmpty(textToParse)) {

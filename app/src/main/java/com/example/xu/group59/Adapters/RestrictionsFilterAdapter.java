@@ -12,7 +12,7 @@ import com.example.xu.group59.R;
 import com.example.xu.group59.models.Shelter;
 
 /**
- * Created by xu on 3/8/18
+ * Restrictions Filter Adapter class for a recycler View
  */
 
 public class RestrictionsFilterAdapter extends RecyclerView.Adapter<RestrictionsFilterAdapter.RestrictionsFilterViewHolder> {

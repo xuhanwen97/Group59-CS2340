@@ -21,7 +21,6 @@ import android.widget.Toast;
 import com.example.xu.group59.fragments.ShelterListRestrictionsFilterFragment;
 import com.example.xu.group59.fragments.ShelterListGenderFilterFragment;
 import com.example.xu.group59.R;
-import com.example.xu.group59.Utils.ToastUtils;
 import com.example.xu.group59.fragments.ShelterInformationFragment;
 import com.example.xu.group59.fragments.ShelterListFragment;
 import com.example.xu.group59.fragments.ShelterMapFragment;
@@ -72,8 +71,12 @@ public class HomelessHomeActivity extends AppCompatActivity implements
 
         //Sets up the top bar
         setSupportActionBar((Toolbar) findViewById(R.id.app_toolbar));
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(R.string.title_activity_homeless_home);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle(R.string.title_activity_homeless_home);
+        }
+
         setupShowShelterList(null);
     }
 
@@ -103,8 +106,11 @@ public class HomelessHomeActivity extends AppCompatActivity implements
         SearchView searchView =
                 (SearchView) menu.findItem(R.id.search_shelter_option).getActionView();
         searchView.setOnQueryTextListener(this);
-        searchView.setSearchableInfo(
-                searchManager.getSearchableInfo(getComponentName()));
+
+        if (searchManager != null) {
+            searchView.setSearchableInfo(
+                    searchManager.getSearchableInfo(getComponentName()));
+        }
 
         mSearchView = searchView;
         return true;
@@ -172,8 +178,7 @@ public class HomelessHomeActivity extends AppCompatActivity implements
         }
 
         if ((shelterListFragment != null) && shelterListFragment.isVisible()) {
-            ToastUtils.shortToastCenter(this, "Logout successful").show();
-            finish();
+            attemptLogout();
         } else {
             getSupportFragmentManager().popBackStack();
         }

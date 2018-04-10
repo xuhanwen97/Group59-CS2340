@@ -58,10 +58,14 @@ public class ShelterMapFragment extends android.support.v4.app.Fragment implemen
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_shelter_map, container, false);
-        MapsInitializer.initialize(this.getActivity());
-        mMapView = mView.findViewById(R.id.shelter_map_view);
-        mMapView.onCreate(savedInstanceState);
-        mMapView.getMapAsync(this);
+        if (this.getActivity() != null) {
+            MapsInitializer.initialize(this.getActivity());
+            mMapView = mView.findViewById(R.id.shelter_map_view);
+            mMapView.onCreate(savedInstanceState);
+            mMapView.getMapAsync(this);
+        } else {
+            throw new IllegalStateException("Something went wrong and MapView can't get the activity");
+        }
 
         return mView;
     }

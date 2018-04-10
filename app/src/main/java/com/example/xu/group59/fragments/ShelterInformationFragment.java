@@ -99,7 +99,11 @@ public class ShelterInformationFragment extends android.support.v4.app.Fragment 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 HashMap occupantData = (HashMap) dataSnapshot.getValue();
-                numberVacancies = shelter.getCapacity() - ((Long)occupantData.get(Shelter.shelterOccupancyTotalReservedKey)).intValue();
+                if (occupantData != null) {
+                    numberVacancies = shelter.getCapacity() - ((Long)occupantData.get(Shelter.shelterOccupancyTotalReservedKey)).intValue();
+                } else {
+                    throw new IllegalArgumentException("Data snapshot does not contain data for occupants");
+                }
                 capacityTextView.setText(String.format(Locale.ENGLISH,"%d/%d", numberVacancies, shelter.getCapacity()));
 
 
@@ -148,7 +152,7 @@ public class ShelterInformationFragment extends android.support.v4.app.Fragment 
         if (StringUtils.isNullOrEmpty(textToParse)) {
             return 0;
         } else {
-            int numberParsed = numberUserReseved;
+            int numberParsed;
             try {
                 numberParsed = Integer.parseInt(textToParse);
             } catch (Exception e) {

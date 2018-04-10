@@ -93,9 +93,6 @@ public class WelcomeActivity extends AppCompatActivity {
 
         switch (requestCode) {
             case ACTIVITY_REGISTER:
-                if (resultCode == RegisterActivity.RESULT_REGISTER_SUCCESS) {
-
-                }
                 break;
             case ACTIVITY_LOGIN:
                 if (resultCode == LoginActivity.RESULT_LOGIN_SUCCESS) {

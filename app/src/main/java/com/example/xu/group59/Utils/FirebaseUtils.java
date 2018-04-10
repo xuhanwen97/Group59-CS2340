@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * Created by xu on 2/27/18
+ * Firebase utiliy class
  */
 
 class FirebaseUtils {

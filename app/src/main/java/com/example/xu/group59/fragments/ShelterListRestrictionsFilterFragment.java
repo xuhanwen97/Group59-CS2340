@@ -78,9 +78,11 @@ public class ShelterListRestrictionsFilterFragment extends android.support.v4.ap
 
         mRecyclerView.setAdapter(adapter);
 
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),
-                DividerItemDecoration.VERTICAL));
+        if (getActivity() != null) {
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),
+                    DividerItemDecoration.VERTICAL));
+        }
         return view;
     }
 

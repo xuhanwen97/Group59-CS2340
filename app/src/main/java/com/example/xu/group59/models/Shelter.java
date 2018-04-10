@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by xu on 2/27/18
+ * Shelter Model class
  */
 
 public class Shelter implements Parcelable {
@@ -121,7 +121,7 @@ public class Shelter implements Parcelable {
      * @return a string detailing the restrictions or no restrictions
      */
     public String getRestrictionsString() {
-        if (restrictions == null || restrictions.isEmpty()) {
+        if ((restrictions == null) || restrictions.isEmpty()) {
             return "No Restrictions";
         }
 
@@ -326,7 +326,7 @@ public class Shelter implements Parcelable {
         this.latitude = in.readDouble();
         this.longitude = in.readDouble();
         this.phoneNumber = in.readString();
-        this.restrictions = new ArrayList<Restrictions>();
+        this.restrictions = new ArrayList<>();
         in.readList(this.restrictions, Restrictions.class.getClassLoader());
         this.shelterName = in.readString();
         this.specialNotes = in.readString();

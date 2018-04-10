@@ -250,7 +250,7 @@ public class HomelessPerson implements Parcelable {
         this.login = in.readString();
         this.password = in.readString();
         this.name = in.readString();
-        this.homelessStatus = new ArrayList<UserStatus>();
+        this.homelessStatus = new ArrayList<>();
         in.readList(this.homelessStatus, UserStatus.class.getClassLoader());
         this.currentShelter = in.readString();
     }

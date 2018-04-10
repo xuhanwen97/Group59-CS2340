@@ -50,7 +50,10 @@ public class RegisterActivity extends AppCompatActivity {
 
         //Sets up the top bar
         setSupportActionBar((Toolbar) findViewById(R.id.app_toolbar));
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         //Grabs each view from the layout
         registerButton = findViewById(R.id.register_button);

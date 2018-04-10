@@ -1,7 +1,6 @@
 package com.example.xu.group59.models;
 
 /**
- * Created by Destini on 3/6/2018.
  */
 
 class ShelterEmployee {} /*extends User {

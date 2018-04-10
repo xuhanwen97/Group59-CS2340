@@ -12,7 +12,7 @@ import com.example.xu.group59.R;
 import com.example.xu.group59.models.Shelter;
 
 /**
- * Created by xu on 3/8/18
+ * Gender filter adapter for a recycler view
  */
 
 public class GenderFilterAdapter extends RecyclerView.Adapter<GenderFilterAdapter.GenderFilterViewHolder> {

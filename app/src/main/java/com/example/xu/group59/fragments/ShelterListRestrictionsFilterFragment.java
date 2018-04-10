@@ -18,17 +18,27 @@ import com.example.xu.group59.models.Shelter;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ShelterListRestrictionsFilterFragment extends android.support.v4.app.Fragment implements RestrictionsFilterAdapter.RestrictionsFilterListener{
+public class ShelterListRestrictionsFilterFragment extends android.support.v4.app.Fragment
+        implements RestrictionsFilterAdapter.RestrictionsFilterListener{
 
     private Shelter.Restrictions[] restrictions;
     private RecyclerView mRecyclerView;
     public static final String TAG = "shelter_list_Restrictions_filter_dialog_fragment";
     private ShelterListRestrictionsFilterFragmentListener mListener;
 
+    /**
+     * A required constructor for the Shelter List Restrictions Filter Fragment.
+     */
     public ShelterListRestrictionsFilterFragment() {
         // Required empty public constructor
     }
 
+    /**
+     * Creates a new instance of the Shelter List Restrictions Filter Fragment. Sets the args,
+     * restrictions, and listener attributes.
+     * @param listener tracks changes for the fragment
+     * @return a new instance of the Shelter List Restrictions Filter Fragment
+     */
     public static ShelterListRestrictionsFilterFragment newInstance(ShelterListRestrictionsFilterFragmentListener listener) {
 
         Bundle args = new Bundle();
@@ -79,6 +89,10 @@ public class ShelterListRestrictionsFilterFragment extends android.support.v4.ap
         mListener.onRestrictionsFilterClicked(restriction);
     }
 
+    /**
+     * Interface for the Shelter List Restrictions Filter Fragment Listener. Contains a method to
+     * let the listener know when a restrictions filter in the list has been clicked on.
+     */
     public interface ShelterListRestrictionsFilterFragmentListener {
         void onRestrictionsFilterClicked(Shelter.Restrictions restriction);
     }

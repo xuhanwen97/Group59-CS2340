@@ -18,18 +18,29 @@ import com.example.xu.group59.models.Shelter;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ShelterListGenderFilterFragment extends android.support.v4.app.Fragment implements GenderFilterAdapter.GenderFilterListener{
+public class ShelterListGenderFilterFragment extends android.support.v4.app.Fragment
+        implements GenderFilterAdapter.GenderFilterListener{
 
     private Shelter.Gender[] genders;
     private RecyclerView mRecyclerView;
     public static final String TAG = "shelter_list_gender_filter_dialog_fragment";
     private ShelterListGenderFilterFragmentListener mListener;
 
+    /**
+     * A required constructor for the Shelter List Gender Filter Fragment.
+     */
     public ShelterListGenderFilterFragment() {
         // Required empty public constructor
     }
 
-    public static ShelterListGenderFilterFragment newInstance(ShelterListGenderFilterFragmentListener listener) {
+    /**
+     * Creates a new instance of the Shelter List Gender Filter Fragment. Sets the args, genders,
+     * and listener attributes.
+     * @param listener tracks changes for the fragment
+     * @return a new instance of the Shelter List Gender Filter Fragment
+     */
+    public static ShelterListGenderFilterFragment newInstance(
+            ShelterListGenderFilterFragmentListener listener) {
 
         Bundle args = new Bundle();
 
@@ -50,7 +61,8 @@ public class ShelterListGenderFilterFragment extends android.support.v4.app.Frag
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_shelter_list_filter, container, false);
+        View view = inflater.inflate(
+                R.layout.fragment_shelter_list_filter, container, false);
 
         mRecyclerView = view.findViewById(R.id.filter_list_recycler_view);
 
@@ -65,7 +77,8 @@ public class ShelterListGenderFilterFragment extends android.support.v4.app.Frag
             }
         });
 
-        GenderFilterAdapter adapter = GenderFilterAdapter.newInstance(Shelter.Gender.values(), this);
+        GenderFilterAdapter adapter = GenderFilterAdapter.newInstance(
+                Shelter.Gender.values(), this);
 
         mRecyclerView.setAdapter(adapter);
 
@@ -80,6 +93,10 @@ public class ShelterListGenderFilterFragment extends android.support.v4.app.Frag
         mListener.onGenderFilterClicked(gender);
     }
 
+    /**
+     * Interface for the Shelter List Gender Filter Fragment Listener. Contains a method to let
+     * the listener know when a gender filter in the list has been clicked on.
+     */
     public interface ShelterListGenderFilterFragmentListener {
         void onGenderFilterClicked(Shelter.Gender gender);
     }

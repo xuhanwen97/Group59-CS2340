@@ -24,6 +24,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Class for shelter list fragment. Used for viewing the shelter list.
+ */
 public class ShelterListFragment extends android.support.v4.app.Fragment implements ShelterListRecyclerViewAdapter.ShelterListRecyclerViewListener
 {
 
@@ -41,11 +44,23 @@ public class ShelterListFragment extends android.support.v4.app.Fragment impleme
 
     private List<Shelter> shelterList;
 
+    /**
+     * Creates a new instance of shelter list fragment. Sets a listener for the fragment.
+     * @param listener tracks changes for the fragment
+     * @return a new instance of the shelter list fragment
+     */
     public static ShelterListFragment newInstance(ShelterListFragmentListener listener) {
 
         return newInstanceWithQuery(listener, null);
     }
 
+    /**
+     * Creates a new instance of shelter list fragment. Sets a listener and shelter list
+     * for the fragment.
+     * @param listener tracks changes for the fragment
+     * @param shelterList shelter list corresponding to the fragment
+     * @return a new instance of the shelter list fragment
+     */
     public static ShelterListFragment newInstance(ShelterListFragmentListener listener, List<Shelter> shelterList) {
 
         ShelterListFragment fragment = newInstanceWithQuery(listener, null);
@@ -147,6 +162,10 @@ public class ShelterListFragment extends android.support.v4.app.Fragment impleme
         }
     }
 
+    /**
+     * Interface for the shelter list fragment listener. contains a method to let the listener
+     * know when a shelter in the list has been clicked on.
+     */
     public interface ShelterListFragmentListener {
         void onShelterClicked(Shelter shelter);
     }

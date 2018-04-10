@@ -23,6 +23,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.List;
 
 /**
+ * Class for a shelter map fragment. Contains methods and sttributes for the fragment.
  */
 public class ShelterMapFragment extends android.support.v4.app.Fragment implements OnMapReadyCallback{
 
@@ -33,10 +34,19 @@ public class ShelterMapFragment extends android.support.v4.app.Fragment implemen
 
     private List<Shelter> shelterList;
 
+    /**
+     * A required constructor for the Shelter Map Fragment.
+     */
     public ShelterMapFragment() {
         // Required empty public constructor
     }
 
+    /**
+     * Creates a new instance of the Shelter Map Fragment. Sets the restrictions, and shelter list
+     * attribute.
+     * @param shelterList the list of shelters displayed in the fragment
+     * @return an instance of the Shelter Map Fragment.
+     */
     public static ShelterMapFragment newInstance(List<Shelter> shelterList) {
         ShelterMapFragment fragment = new ShelterMapFragment();
 

@@ -23,6 +23,9 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+/**
+ * Class for shelter information fragment with attributes for the shelter visualization.
+ */
 public class ShelterInformationFragment extends android.support.v4.app.Fragment {
 
     public static final String TAG = "shelter_information_fragment";
@@ -41,6 +44,13 @@ public class ShelterInformationFragment extends android.support.v4.app.Fragment 
     private EditText shelterUserReservedAmountEditText;
     private Button reserveSpotsButton;
 
+    /**
+     * Creates an instance of shelter information fragment. Sets attributes for shelter, and loggged
+     * in person. Sets arguments.
+     * @param shelter the shelter for the new instance
+     * @param loggedInPerson the logged in person viewing the instance
+     * @return the new instance of shelter information fragment
+     */
     public static ShelterInformationFragment newInstance(Shelter shelter, HomelessPerson loggedInPerson) {
         Bundle args = new Bundle();
         

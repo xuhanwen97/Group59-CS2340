@@ -12,11 +12,22 @@ import com.example.xu.group59.models.Shelter;
 
 import java.util.List;
 
+/**
+ * Class that contains the view adapter for the shelter list recycler. Contains attributes and
+ * methods for the view adapter.
+ */
 public class ShelterListRecyclerViewAdapter extends RecyclerView.Adapter<ShelterListRecyclerViewAdapter.ShelterListViewHolder> {
 
     private ShelterListRecyclerViewListener mListener;
     private List<Shelter> shelterList;
 
+    /**
+     * Creates a new instance of the Shelter List Recycler View Adapter. Sets the attributes for the
+     * listener and the shelter list.
+     * @param listener tracks changes for the view adapter.
+     * @param shelterList the list of shelters in the shelter list recycler
+     * @return a new adapter for the Shelter List Recycler View
+     */
     public static ShelterListRecyclerViewAdapter newInstance(ShelterListRecyclerViewListener listener, List<Shelter> shelterList) {
         ShelterListRecyclerViewAdapter adapter = new ShelterListRecyclerViewAdapter();
         adapter.mListener = listener;
@@ -46,11 +57,18 @@ public class ShelterListRecyclerViewAdapter extends RecyclerView.Adapter<Shelter
         return shelterList.size();
     }
 
+    /**
+     * A class for the shelter list view holder. Holds the shelter list view.
+     */
     public class ShelterListViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView shelterNameTextView;
         private Shelter data;
 
+        /**
+         * Constructor for the shelter list view holder. Calls to the super class constructor.
+         * @param itemView a view of an item
+         */
         public ShelterListViewHolder(View itemView) {
             super(itemView);
             shelterNameTextView = itemView.findViewById(R.id.shelter_name_text_view);
@@ -65,7 +83,6 @@ public class ShelterListRecyclerViewAdapter extends RecyclerView.Adapter<Shelter
         }
 
         /**
-         *
          * Set the text to be displayed in the list of the specific shelter that is being search for
          * @param shelter shelter that is being searched for
          */
@@ -80,6 +97,10 @@ public class ShelterListRecyclerViewAdapter extends RecyclerView.Adapter<Shelter
 
     }
 
+    /**
+     * A Shelter List Recycler View Listener for the above adapter. Tracks when a shelter is clicked
+     * on.
+     */
     public interface ShelterListRecyclerViewListener {
         void onShelterClicked(Shelter shelter);
     }

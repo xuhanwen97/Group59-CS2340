@@ -20,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class ShelterInformationFragment extends android.support.v4.app.Fragment {
@@ -94,7 +95,7 @@ public class ShelterInformationFragment extends android.support.v4.app.Fragment 
             public void onDataChange(DataSnapshot dataSnapshot) {
                 HashMap occupantData = (HashMap) dataSnapshot.getValue();
                 numberVacancies = shelter.getCapacity() - ((Long)occupantData.get(Shelter.shelterOccupancyTotalReservedKey)).intValue();
-                capacityTextView.setText(String.format("%d/%d", numberVacancies, shelter.getCapacity()));
+                capacityTextView.setText(String.format(Locale.ENGLISH,"%d/%d", numberVacancies, shelter.getCapacity()));
 
 
 //                int total_reserved_count = 0;
@@ -123,7 +124,7 @@ public class ShelterInformationFragment extends android.support.v4.app.Fragment 
         Map<String, Object> occupancyUpdates = new HashMap<>();
         int userVacancies = getNumberReserved();
         if (userVacancies == numberUserReseved) {
-            shelterUserReservedAmountEditText.setText(String.format("%d", userVacancies));
+            shelterUserReservedAmountEditText.setText(String.format(Locale.ENGLISH, "%d", userVacancies));
         } else {
             numberVacancies += numberUserReseved - userVacancies;
 
@@ -198,7 +199,7 @@ public class ShelterInformationFragment extends android.support.v4.app.Fragment 
         shelterNameTextView.setText(shelter.getShelterName());
         addressTextView.setText(shelter.getAddress());
         phoneNumberTextView.setText(shelter.getPhoneNumber());
-        capacityTextView.setText(String.format("%d/%d", numberVacancies, shelter.getCapacity()));
+        capacityTextView.setText(String.format(Locale.ENGLISH, "%d/%d", numberVacancies, shelter.getCapacity()));
         restrictionsTextView.setText(shelter.getRestrictionsString());
         specialNotesTextView.setText(shelter.getSpecialNotes());
     }

@@ -8,14 +8,6 @@
     <string name="checkbox_admin">Admin</string>
     <string name="action_login">Login</string>
     <string name="action_register">Register</string>
-    <string name="action_logout">Logout</string>
-    <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_register">RegisterActivity</string>
     <string name="title_activity_welcome">WelcomeActivity</string>
@@ -37,5 +29,6 @@
     <string name="title_restrictions_filter">Restrictions Filter</string>
     <string name="reserved_spots_label">Reserved Spots (10 max):</string>
     <string name="reserve_spots_button">Reserve Spots</string>
-    <string name="title_activity_shelter_list_map">Shelter List Map</string>
+    <string name="filters_label">Filters</string>
+    <string name="testname_label">TestName</string>
 </resources>

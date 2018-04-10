@@ -13,10 +13,6 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
     <!-- ToolBar -->
     <!-- Changing textColorPrimary does change the title color, but then that fucks the overflow menu-->
     <style name="ToolBarStyle" parent="@style/ThemeOverlay.AppCompat.ActionBar">

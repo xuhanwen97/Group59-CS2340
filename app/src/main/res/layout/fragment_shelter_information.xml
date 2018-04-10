@@ -164,6 +164,7 @@
             />
 
         <EditText
+            android:labelFor="@+id/shelter_user_reserved_amount_text_view"
             android:id="@+id/shelter_user_reserved_amount_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

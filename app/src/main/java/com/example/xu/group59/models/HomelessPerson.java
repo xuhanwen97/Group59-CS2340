@@ -39,7 +39,7 @@ public class HomelessPerson implements Parcelable {
     //endregion
 
     public static Map<String, Boolean> defaultHomelessStatus() {
-        HashMap<String, Boolean> homelessStatuses = new HashMap<>();
+        Map<String, Boolean> homelessStatuses = new HashMap<>();
 
         homelessStatuses.put("Active", true);
 
@@ -47,7 +47,7 @@ public class HomelessPerson implements Parcelable {
     }
 
     public static Map<String, Boolean> defaultAdminStatus() {
-        HashMap<String, Boolean> adminStatuses = new HashMap<>();
+        Map<String, Boolean> adminStatuses = new HashMap<>();
 
         adminStatuses.put("Active", true);
         adminStatuses.put("Admin", true);
@@ -62,6 +62,7 @@ public class HomelessPerson implements Parcelable {
         this(email, password, name, UserStatus.Active);
     }
 
+    //I don't know what to say, I made StringUtils to be used
     private HomelessPerson(String email, String password, String name, UserStatus homelessStatus) {
         if (StringUtils.isNullOrEmpty(email)) {
             throw new IllegalArgumentException("email cannot be null");

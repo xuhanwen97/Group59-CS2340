@@ -2,7 +2,6 @@ package com.example.xu.group59.Utils;
 
 import android.util.Log;
 
-import com.example.xu.group59.models.HomelessPerson;
 import com.example.xu.group59.models.Shelter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -12,8 +11,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by xu on 2/27/18

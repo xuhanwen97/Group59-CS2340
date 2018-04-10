@@ -10,10 +10,7 @@ import android.widget.Button;
 
 import com.example.xu.group59.R;
 import com.example.xu.group59.models.HomelessPerson;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.ArrayList;
 
 public class WelcomeActivity extends AppCompatActivity {
 

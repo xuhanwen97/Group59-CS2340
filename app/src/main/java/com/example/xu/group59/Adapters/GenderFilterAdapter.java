@@ -11,9 +11,6 @@ import android.widget.TextView;
 import com.example.xu.group59.R;
 import com.example.xu.group59.models.Shelter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by xu on 3/8/18
  */

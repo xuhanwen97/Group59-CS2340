@@ -21,7 +21,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.Query;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class ShelterListFragment extends android.support.v4.app.Fragment implements ShelterListRecyclerViewAdapter.ShelterListRecyclerViewListener

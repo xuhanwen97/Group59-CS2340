@@ -11,9 +11,6 @@ import android.widget.TextView;
 import com.example.xu.group59.R;
 import com.example.xu.group59.models.Shelter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by xu on 3/8/18
  */
@@ -23,6 +20,14 @@ public class GenderFilterAdapter extends RecyclerView.Adapter<GenderFilterAdapte
     private Shelter.Gender[] genderList;
     private GenderFilterListener mListener;
 
+    /**
+     * Static method to create new instance of the gender filter based on the passed in gender list
+     * and listener
+     *
+     * @param genderList list of genders that each shelter excepts
+     * @param listener listener to see when the gender filter should be applied
+     * @return the new filter to be applied
+     */
     public static GenderFilterAdapter newInstance(Shelter.Gender[] genderList, GenderFilterListener listener) {
 
         Bundle args = new Bundle();
@@ -71,6 +76,10 @@ public class GenderFilterAdapter extends RecyclerView.Adapter<GenderFilterAdapte
         private final TextView filterNameTextView;
         private Shelter.Gender gender;
 
+        /**
+         * Class that calls the super class to viewHolder
+         * @param itemView item view that hold the gender list
+         */
         public GenderFilterViewHolder(View itemView) {
             super(itemView);
             filterNameTextView = itemView.findViewById(R.id.filter_name_text_view);
@@ -100,8 +109,14 @@ public class GenderFilterAdapter extends RecyclerView.Adapter<GenderFilterAdapte
 
     }
 
-
+    /**
+     * interface to to tell if the gender filter was clicked
+     */
     public interface GenderFilterListener {
+        /**
+         *
+         * @param gender gender that you are filtering by
+         */
         void onGenderFilterClicked(Shelter.Gender gender);
     }
 }

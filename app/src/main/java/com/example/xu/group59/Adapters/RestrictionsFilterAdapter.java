@@ -20,6 +20,13 @@ public class RestrictionsFilterAdapter extends RecyclerView.Adapter<Restrictions
     private Shelter.Restrictions[] restrictionsList;
     private RestrictionsFilterListener mListener;
 
+    /**
+     * Static method to return a filter adapter of the shelter restrictions
+     *
+     * @param restrictionsList list of restrictions that each shelter has
+     * @param listener listener to see if the restrictions list is clicked
+     * @return the adapter for the restriction filter
+     */
     public static RestrictionsFilterAdapter newInstance(Shelter.Restrictions[] restrictionsList, RestrictionsFilterListener listener) {
 
         Bundle args = new Bundle();
@@ -67,6 +74,10 @@ public class RestrictionsFilterAdapter extends RecyclerView.Adapter<Restrictions
         private final TextView filterNameTextView;
         private Shelter.Restrictions restriction;
 
+        /**
+         *
+         * @param itemView view of an item :)
+         */
         public RestrictionsFilterViewHolder(View itemView) {
             super(itemView);
             filterNameTextView = itemView.findViewById(R.id.filter_name_text_view);
@@ -96,7 +107,14 @@ public class RestrictionsFilterAdapter extends RecyclerView.Adapter<Restrictions
 
     }
 
+    /**
+     * interface to listen and see if the restriction filter was clicked
+     */
     public interface RestrictionsFilterListener {
+        /**
+         *
+         * @param restriction restriction that is being filtered
+         */
         void onRestrictionsFilterClicked(Shelter.Restrictions restriction);
     }
 }

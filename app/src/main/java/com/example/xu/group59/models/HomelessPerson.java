@@ -11,6 +11,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This class represents the HomelessPerson and implements the Parcelable interface
+ */
 public class HomelessPerson implements Parcelable {
     //region [ Declarations ] ================================= //
 
@@ -38,6 +41,11 @@ public class HomelessPerson implements Parcelable {
 
     //endregion
 
+    /**
+     *
+     * a method that puts the status of the Homeless Person as active
+     * @return a map of the homeless statuses
+     */
     public static Map<String, Boolean> defaultHomelessStatus() {
         Map<String, Boolean> homelessStatuses = new HashMap<>();
 
@@ -46,6 +54,10 @@ public class HomelessPerson implements Parcelable {
         return homelessStatuses;
     }
 
+    /**
+     * a method that puts the status of the admin as active
+     * @return a Map of the admin statuses
+     */
     public static Map<String, Boolean> defaultAdminStatus() {
         Map<String, Boolean> adminStatuses = new HashMap<>();
 
@@ -58,6 +70,13 @@ public class HomelessPerson implements Parcelable {
     //region [ Constructors ] ================================= //
 
     //Public constructor, takes in email, password, and name, and sets status to Active by default
+
+    /**
+     * A constructor for the Homeless person that takes in email, password, name, and sets status
+     * @param email a string with the email of the homeless person
+     * @param password a string with the password of the homeless person
+     * @param name a string with the name of the homeless person
+     */
     public HomelessPerson(String email, String password, String name) {
         this(email, password, name, UserStatus.Active);
     }
@@ -88,6 +107,10 @@ public class HomelessPerson implements Parcelable {
         this.homelessStatus.add(homelessStatus);
     }
 
+    /**
+     * Homeless person constructor
+     * @param homelessSnapshot the packet of data about the Homeless Person
+     */
     public HomelessPerson(DataSnapshot homelessSnapshot) {
         HashMap homelessData = (HashMap) homelessSnapshot.getValue();
         String homelessKey = homelessSnapshot.getKey();
@@ -152,30 +175,58 @@ public class HomelessPerson implements Parcelable {
 
     //region [ Getters/Setters ] ================================= //
 
+    /**
+     * Retrieves the user login of the homeless person
+     * @return a string of the login
+     */
     public String getUserLogin() {
         return login;
     }
 
+    /**
+     * Retrieves the password of the homeless person
+     * @return a string of the password
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     * Sets the password of the homeless person
+     * @param password a string of the password of the homeless person
+     */
     public void setPassword(String password) {
         this.password = password;
     }
 
+    /**
+     * Retrieves the name of the homeless person
+     * @return a string of the name of the homeless person
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Sets the name of the homeless person
+     * @param name a string of the name of the homeless person
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Retrieves the user status of the homeless people
+     * @return a list of the user statuses of the homeless people
+     */
     public List<UserStatus> getUserStatus() {
         return homelessStatus;
     }
 
+    /**
+     * Sets the user status of the homeless people
+     * @param homelessStatus a list of the userstatuses of the homeless people
+     */
     public void setUserStatus(List<UserStatus> homelessStatus) {
         this.homelessStatus = homelessStatus;
     }

@@ -6,7 +6,6 @@ import android.os.Parcelable;
 import com.google.firebase.database.DataSnapshot;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +25,10 @@ public class Shelter implements Parcelable {
             this.name = name;
         }
 
+        /**
+         * This method gets the name of the homeless person
+         * @return a CharSequence of the name of the homeless person
+         */
         public CharSequence getName() {
             return name;
         }
@@ -42,6 +45,10 @@ public class Shelter implements Parcelable {
             this.name = name;
         }
 
+        /**
+         * Retrieves the name of the Shelter
+         * @return a string of the name of the shelter
+         */
         public String getName() {
             return name;
         }
@@ -73,6 +80,10 @@ public class Shelter implements Parcelable {
     private String specialNotes;
     private String shelterKey;
 
+    /**
+     * A constructor for the shelter
+     * @param dataSnapshot takes in a packet of the shelters data
+     */
     public Shelter(DataSnapshot dataSnapshot) {
         this((HashMap) dataSnapshot.getValue());
         this.shelterKey = dataSnapshot.getKey();
@@ -110,7 +121,7 @@ public class Shelter implements Parcelable {
      * @return a string detailing the restrictions or no restrictions
      */
     public String getRestrictionsString() {
-        if (restrictions == null || restrictions.size() == 0) {
+        if (restrictions == null || restrictions.isEmpty()) {
             return "No Restrictions";
         }
 

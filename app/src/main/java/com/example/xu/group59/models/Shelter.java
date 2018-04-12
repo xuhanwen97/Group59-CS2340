@@ -81,6 +81,12 @@ public class Shelter implements Parcelable {
     private String shelterKey;
 
     /**
+     * no arg constructor for use in tests
+     */
+    public Shelter() {
+        restrictions = null;
+    }
+    /**
      * A constructor for the shelter
      * @param dataSnapshot takes in a packet of the shelters data
      */
@@ -131,7 +137,7 @@ public class Shelter implements Parcelable {
             restrictionsString.append(r.getName()).append(", ");
         }
 
-        return restrictionsString.substring(0, restrictionsString.length() - 3);
+        return restrictionsString.substring(0, restrictionsString.length() - 2);
     }
 
     /**

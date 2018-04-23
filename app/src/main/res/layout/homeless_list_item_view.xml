@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/homeless_list_login_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textSize="18sp"
+            android:text="@string/testname_label"
+            android:layout_margin="8dp"
+            />
+
+        <Button
+            android:id="@+id/homeless_list_ban_button"
+            android:layout_toStartOf="@id/homeless_list_unban_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_ban"
+            />
+
+        <Button
+            android:id="@+id/homeless_list_unban_button"
+            android:layout_alignParentEnd="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_unban"
+            android:layout_marginEnd="8dp"
+            />
+
+    </RelativeLayout>
+
+
+</FrameLayout>

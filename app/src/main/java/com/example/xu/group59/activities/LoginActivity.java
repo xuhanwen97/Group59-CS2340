@@ -121,12 +121,6 @@ public class LoginActivity extends AppCompatActivity {
     private void authenticateUser(String login, final String password) {
 
 
-        if (loginAttempts.containsKey(login)) {
-            if (loginAttempts.get(login) >= MAX_LOGIN_ATTEPMTS) {
-                loginBlockedToast();
-                return;
-            }
-        }
 
         waitingForLoginResponse = true;
 
@@ -136,6 +130,7 @@ public class LoginActivity extends AppCompatActivity {
         userReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
                 waitingForLoginResponse = false;
 
                 if (dataSnapshot.getValue() == null) {
@@ -163,7 +158,7 @@ public class LoginActivity extends AppCompatActivity {
                                 lockoutUser(hp);
                                 hp.logActivity("login_failed");
                                 hp.logActivity("login_blocked");
-                                loginBlockedToast();
+                                loginAttemptsBlockedToast();
                                 return;
                             }
                         } else {
@@ -215,6 +210,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginBlockedToast() {
+        ToastUtils.shortToastCenter(this, String.format("Login Blocked")).show();
+    }
+
+    private void loginAttemptsBlockedToast() {
         ToastUtils.shortToastCenter(this, String.format("Exceeded %d attempts, login blocked", MAX_LOGIN_ATTEPMTS)).show();
     }
 

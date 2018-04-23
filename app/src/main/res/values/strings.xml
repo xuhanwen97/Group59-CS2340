@@ -12,6 +12,7 @@
     <string name="title_activity_register">RegisterActivity</string>
     <string name="title_activity_welcome">WelcomeActivity</string>
     <string name="title_activity_homeless_home">Homeless Shelters</string>
+    <string name="title_activity_admin_home">Admin Panel</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="not_applicable">N/A</string>
@@ -30,5 +31,7 @@
     <string name="reserve_spots_button">Reserve Spots</string>
     <string name="filters_label">Filters</string>
     <string name="testname_label">TestName</string>
+    <string name="button_ban">Ban</string>
+    <string name="button_unban">Unban</string>
     <string name="title_activity_shelter_list_map" tools:keep="@string/title_activity_shelter_list_map">Shelter List Map</string>
 </resources>

@@ -77,6 +77,12 @@ public class WelcomeActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    private void launchAdminHomeActivity(Parcelable loggedInUser) {
+        Intent intent = new Intent(this, AdminHomeActivity.class);
+        intent.putExtra(HomelessHomeActivity.LOGGED_IN_USER_TAG, loggedInUser);
+        startActivity(intent);
+    }
+
     //endregion
 
     //endregion
@@ -97,6 +103,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
                     if (loggedInHomelessPerson.getUserStatus().contains(HomelessPerson.UserStatus.Admin)) {
                         //launch admin page
+                        launchAdminHomeActivity(loggedInHomelessPerson);
                     } else {
                         launchHomelessHomeActivity(loggedInHomelessPerson);
                     }

@@ -53,10 +53,6 @@ public class WelcomeActivity extends AppCompatActivity {
                 launchRegisterActivity();
             }
         });
-
-
-//        DatabaseReference createHomelessReference =
-                FirebaseDatabase.getInstance().getReference("shelter_occupancy");
     }
 
     //region [ Helpers ] ================================= //
@@ -75,7 +71,7 @@ public class WelcomeActivity extends AppCompatActivity {
         startActivityForResult(intent, ACTIVITY_REGISTER);
     }
 
-    private void launchTempApplication(Parcelable loggedInUser) {
+    private void launchHomelessHomeActivity(Parcelable loggedInUser) {
         Intent intent = new Intent(this, HomelessHomeActivity.class);
         intent.putExtra(HomelessHomeActivity.LOGGED_IN_USER_TAG, loggedInUser);
         startActivity(intent);
@@ -99,7 +95,11 @@ public class WelcomeActivity extends AppCompatActivity {
                     //user that's logged in
                     HomelessPerson loggedInHomelessPerson = data.getParcelableExtra(LoginActivity.LOGGED_IN_USER_DATA);
 
-                    launchTempApplication(loggedInHomelessPerson);
+                    if (loggedInHomelessPerson.getUserStatus().contains(HomelessPerson.UserStatus.Admin)) {
+                        //launch admin page
+                    } else {
+                        launchHomelessHomeActivity(loggedInHomelessPerson);
+                    }
                 }
                 break;
         }

@@ -103,7 +103,7 @@ public class ShelterInformationFragment extends android.support.v4.app.Fragment 
                 if (occupantData != null) {
                     numberVacancies = shelter.getCapacity() - ((Long)occupantData.get(Shelter.shelterOccupancyTotalReservedKey)).intValue();
                 } else {
-                    throw new IllegalArgumentException("Data snapshot does not contain data for occupants");
+                    numberVacancies = shelter.getCapacity();
                 }
                 capacityTextView.setText(String.format(Locale.ENGLISH,"%d/%d", numberVacancies, shelter.getCapacity()));
 
@@ -144,6 +144,21 @@ public class ShelterInformationFragment extends android.support.v4.app.Fragment 
             occupancyUpdates.put(Shelter.shelterOccupancyTotalReservedKey, shelter.getCapacity() - numberVacancies);
 
             shelterOccupancyRef.updateChildren(occupancyUpdates);
+
+
+            // Now update a user's current shelter
+            DatabaseReference homelessPersonReference = FirebaseDatabase.getInstance()
+                    .getReference(HomelessPerson.homelessPersonKey)
+                    .child(loggedInPerson.getUserLogin());
+
+            Map<String, Object> homelessPersonUpdates = new HashMap<>();
+
+            homelessPersonUpdates.put(HomelessPerson.currentShelterKey, shelter.getShelterKey());
+
+            homelessPersonReference.updateChildren(homelessPersonUpdates);
+
+            // Log the reservation
+            loggedInPerson.logActivity(String.format("reserved_shelter_%s_vacancies_%d", shelter.getShelterKey(), userVacancies));
         }
     }
 

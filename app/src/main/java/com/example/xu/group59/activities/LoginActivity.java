@@ -21,7 +21,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Activity that set up the login screen that any user will see when opening the application.  This
@@ -39,6 +43,9 @@ public class LoginActivity extends AppCompatActivity {
     private EditText passwordEditText;
 
     private final Collection<HomelessPerson> homelessPeople = new ArrayList<>();
+
+    private final int MAX_LOGIN_ATTEPMTS = 3;
+    private Map<String, Integer> loginAttempts;
 
     //Keeps track of if there is currently a login request
     private Boolean waitingForLoginResponse = false;
@@ -59,6 +66,8 @@ public class LoginActivity extends AppCompatActivity {
         loginButton = findViewById(R.id.login_button);
         emailEditText = findViewById(R.id.email_edit_text);
         passwordEditText = findViewById(R.id.password_edit_text);
+
+        loginAttempts = new HashMap<>();
 
         //sets an onclick listener for the login button
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -111,6 +120,14 @@ public class LoginActivity extends AppCompatActivity {
      */
     private void authenticateUser(String login, final String password) {
 
+
+        if (loginAttempts.containsKey(login)) {
+            if (loginAttempts.get(login) >= MAX_LOGIN_ATTEPMTS) {
+                loginBlockedToast();
+                return;
+            }
+        }
+
         waitingForLoginResponse = true;
 
         DatabaseReference userReference =
@@ -126,9 +143,34 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
                     HomelessPerson hp = new HomelessPerson(dataSnapshot);
 
+                    if (hp.getUserStatus().contains(HomelessPerson.UserStatus.Blocked)) {
+                        loginBlockedToast();
+                        hp.logActivity("login_blocked");
+                        return;
+                    }
+
                     if (password.equals(hp.getPassword())) {
                         loginSuccessToast(hp);
+                        loginAttempts.clear();
+                        hp.logActivity("login_success");
+
                     } else {
+                        if (loginAttempts.containsKey(hp.getUserLogin())) {
+                            int curAttempts = loginAttempts.get(hp.getUserLogin());
+                            loginAttempts.put(hp.getUserLogin(), curAttempts + 1);
+
+                            if (loginAttempts.get(hp.getUserLogin()) >= MAX_LOGIN_ATTEPMTS) {
+                                lockoutUser(hp);
+                                hp.logActivity("login_failed");
+                                hp.logActivity("login_blocked");
+                                loginBlockedToast();
+                                return;
+                            }
+                        } else {
+                            loginAttempts.put(hp.getUserLogin(), 1);
+                        }
+
+                        hp.logActivity("login_failed");
                         loginFailedToast();
                     }
                 }
@@ -139,6 +181,20 @@ public class LoginActivity extends AppCompatActivity {
                 loginFailedToast();
             }
         });
+    }
+
+    private void lockoutUser(HomelessPerson hp) {
+        DatabaseReference homelessPersonReference = FirebaseDatabase.getInstance()
+                .getReference(HomelessPerson.homelessPersonKey)
+                .child(hp.getUserLogin())
+                .child("status");
+
+        Map<String, Object> homelessPersonUpdates = new HashMap<>();
+
+        homelessPersonUpdates.put("Blocked", true);
+        homelessPersonUpdates.put("Active", null);
+
+        homelessPersonReference.updateChildren(homelessPersonUpdates);
     }
 
     private void loginSuccessToast(Parcelable loggedInHomelessPerson) {
@@ -157,37 +213,9 @@ public class LoginActivity extends AppCompatActivity {
     private void loginFailedToast() {
         ToastUtils.shortToastCenter(this, "Login Failed").show();
     }
-//
-//    public void addHomelessToList(HomelessPerson homelessPerson) {
-//        if (homelessPerson != null) {
-//            homelessPeople.add(homelessPerson);
-//        }
-//    }
 
-   /*public void getUserList() {
-        DatabaseReference userReference =
-                FirebaseDatabase.getInstance().getReference(HomelessPerson.homelessPersonKey);
-
-        userReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot homelessSnapshot : dataSnapshot.getChildren()) {
-
-                    HomelessPerson hp = new HomelessPerson(homelessSnapshot);
-
-                    homelessPeople.add(hp);
-                }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }*/
-
-    //endregion
-
+    private void loginBlockedToast() {
+        ToastUtils.shortToastCenter(this, String.format("Exceeded %d attempts, login blocked", MAX_LOGIN_ATTEPMTS)).show();
+    }
 
 }

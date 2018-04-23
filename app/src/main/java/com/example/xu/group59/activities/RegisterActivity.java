@@ -151,6 +151,9 @@ public class RegisterActivity extends AppCompatActivity {
 
         createHomelessReference.setValue(newHomelessData);
 
+        HomelessPerson newHp = new HomelessPerson(email, password, name);
+        newHp.logActivity("register_success");
+
         registerSuccessToast();
     }
 

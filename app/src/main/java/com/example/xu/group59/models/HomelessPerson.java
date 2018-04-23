@@ -5,8 +5,12 @@ import android.os.Parcelable;
 
 import com.example.xu.group59.Utils.StringUtils;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,8 +28,10 @@ public class HomelessPerson implements Parcelable {
     public static final String statusKey = "status";
     public static final String currentShelterKey = "current_shelter";
 
+    public static final String ACTIVITY_LOG_KEY = "activity_log";
+
     //Enum class to describe if user is a normal, active user, or if it's blocked for some reason
-    enum UserStatus {
+    public enum UserStatus {
         Active,
         Blocked,
         Admin,
@@ -266,5 +272,20 @@ public class HomelessPerson implements Parcelable {
             return new HomelessPerson[size];
         }
     };
+
+    public void logActivity(String activityType) {
+        DatabaseReference homelessPersonReference = FirebaseDatabase.getInstance()
+                .getReference(HomelessPerson.ACTIVITY_LOG_KEY)
+                .child(login);
+
+        Map<String, Object> homelessPersonUpdates = new HashMap<>();
+
+        // Activity Log in format of time -> activityType
+        Date currentTime = Calendar.getInstance().getTime();
+
+        homelessPersonUpdates.put(currentTime.getTime() + "", activityType);
+
+        homelessPersonReference.updateChildren(homelessPersonUpdates);
+    }
 }
 
